@@ -10,7 +10,7 @@ function App() {
     <>
       <div>
       <h1 className="text-3xl font-bold underline">
-      testing tailwindcss!
+      testing Firas's Branch!
     </h1>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
