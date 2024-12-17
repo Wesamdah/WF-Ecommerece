@@ -1,10 +1,17 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../features/auth/authSlice";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentUser, selectCurrentUser } from "../features/auth/authSlice";
 
 const RequireAuth = () => {
-  const user = useSelector(selectCurrentUser);
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCurrentUser()); // Fetch user on app load to restore session
+  }, [dispatch]);
+
+  const user = useSelector(selectCurrentUser);
 
   return user ? (
     <Outlet />

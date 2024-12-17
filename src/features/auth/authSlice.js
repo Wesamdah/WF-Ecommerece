@@ -28,6 +28,17 @@ export const logoutUser = createAsyncThunk('auth/logoutUser', async () => {
     }
 })
 
+//fetch current user thunk
+export const getCurrentUser = createAsyncThunk('auth/getCurrentUser', async (rejectWithValue) => {
+    try {
+        const response = await axiosClient.get('/users/getCurrentUser')
+        console.log(response.data)
+        return response.data
+    } catch (error) {
+        return rejectWithValue(error.response.data)
+    }
+})
+
 
 
 const authSlice = createSlice({
@@ -42,11 +53,22 @@ const authSlice = createSlice({
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.status = "succeeded"
-                state.user = action.payload.user
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.status = 'failed'
                 state.error = action.payload;
+            })
+            .addCase(getCurrentUser.pending, (state) => {
+                state.status = 'loading'
+                state.error = null
+            })
+            .addCase(getCurrentUser.fulfilled, (state, action) => {
+                state.status = "succeeded"
+                state.user = action.payload.user
+            })
+            .addCase(getCurrentUser.rejected, (state, action) => {
+                state.status = 'failed',
+                    state.error = action.payload
             })
             .addCase(logoutUser.fulfilled, (state) => {
                 state.user = null
