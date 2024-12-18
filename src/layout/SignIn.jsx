@@ -1,4 +1,12 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import {
+  loginUser,
+  selectAuthError,
+  selectAuthStatus,
+} from "../features/auth/authSlice";
 // images
 import Logo from "../assets/imgs/logo.png";
 import tube3d from "../assets/imgs/tube3d.png";
@@ -7,6 +15,11 @@ import Inputs from "../components/Inputs";
 import { Link } from "react-router-dom";
 
 export default function SignIn() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const authStatus = useSelector(selectAuthStatus);
+  const authError = useSelector(selectAuthError);
+
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -14,7 +27,14 @@ export default function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(loginUser({ email: data.email, password: data.password }));
   };
+
+  useEffect(() => {
+    if (authStatus === "succeeded" && !authError) {
+      navigate("/");
+    }
+  }, [authStatus, authError, navigate]);
 
   const canSubmit = [...Object.values(data)].every(Boolean);
 
@@ -45,6 +65,8 @@ export default function SignIn() {
             Login
           </button>
         </form>
+        {authStatus === "loading" && <p>Logging in...</p>}
+        {authStatus === "failed" && <p>Error: {authError}</p>}
         <p className="px-8 text-sm text-[#A1A1A1]">
           {" "}
           Don't have account?{" "}
