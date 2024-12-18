@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,10 +12,11 @@ import Logo from "../assets/imgs/logo.png";
 import tube3d from "../assets/imgs/tube3d.png";
 // components
 import Inputs from "../components/Inputs";
-import { Link } from "react-router-dom";
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const dispatch = useDispatch();
   const authStatus = useSelector(selectAuthStatus);
   const authError = useSelector(selectAuthError);
@@ -32,7 +33,8 @@ export default function SignIn() {
 
   useEffect(() => {
     if (authStatus === "succeeded" && !authError) {
-      navigate("/");
+      navigate(from, { replace: true });
+      // navigate("/");
     }
   }, [authStatus, authError, navigate]);
 

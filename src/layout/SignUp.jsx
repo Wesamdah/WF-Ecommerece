@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import {
+  registerUser,
+  selectAuthError,
+  selectAuthStatus,
+} from "../features/auth/authSlice";
 // imags
 import Logo from "../assets/imgs/logo.png";
 import furniture from "../assets/imgs/furniture3d.png";
@@ -10,8 +17,14 @@ const userRegex = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 export default function SignUp() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const authStatus = useSelector(selectAuthStatus);
+  const authError = useSelector(selectAuthError);
+
   const [data, setData] = useState({
     name: "",
+    lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -29,9 +42,11 @@ export default function SignUp() {
       console.log("Invalid Entry");
       return;
     }
+    const formDataToSend = new FormData();
+    Object.keys(data).forEach((key) => formDataToSend.append(key, data[key]));
+    // dispatch(registerUser({ name: data.name,lastName:data.lastName,email:data. }));
+    dispatch(registerUser(formDataToSend));
   };
-
-  const canSubmit = [...Object.values(data)].every(Boolean);
 
   useEffect(() => {
     const result = userRegex.test(data.name);
@@ -44,6 +59,14 @@ export default function SignUp() {
     const match = data.password === data.confirmPassword;
     setValidMatch(match);
   }, [data.password, data.confirmPassword]);
+
+  useEffect(() => {
+    if (authStatus === "succeeded" && !authError) {
+      navigate("/");
+    }
+  }, [authStatus, authError, navigate]);
+
+  const canSubmit = [...Object.values(data)].every(Boolean);
 
   return (
     <main className="relative flex h-screen w-screen overflow-hidden bg-[#8BB2B2] md:justify-between">
@@ -69,11 +92,19 @@ export default function SignUp() {
           <Inputs
             name={"name"}
             type="text"
-            placeholder="Enter Your Name"
+            placeholder="Enter Your First Name"
             value={data.name}
             setData={setData}
             valid={validName}
             Regex
+          />
+          <Inputs
+            name={"lastName"}
+            type="text"
+            placeholder="Enter Your Last Name"
+            value={data.lastName}
+            setData={setData}
+            valid={true}
           />
           <Inputs
             name={"email"}
@@ -109,6 +140,8 @@ export default function SignUp() {
             Create Account
           </button>
         </form>
+        {authStatus === "loading" && <p>Logging in...</p>}
+        {authStatus === "failed" && <p>Error: {authError}</p>}
         <p className="px-8 text-sm text-[#A1A1A1]">
           Already have an account?{" "}
           <Link to={"/signin"} className="font-bold text-[#8BB2B2]">
