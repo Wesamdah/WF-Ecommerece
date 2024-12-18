@@ -7,11 +7,13 @@ const RequireAuth = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getCurrentUser()); // Fetch user on app load to restore session
-  }, [dispatch]);
-
   const user = useSelector(selectCurrentUser);
+
+  if (!user) dispatch(getCurrentUser());
+
+  // useEffect(() => {
+  //   dispatch(getCurrentUser()); // Fetch user on app load to restore session
+  // }, [dispatch]);
 
   return user ? (
     <Outlet />

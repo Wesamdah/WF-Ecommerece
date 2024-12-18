@@ -5,6 +5,7 @@ import { selectCurrentUser } from "../features/auth/authSlice";
 const UserInfo = () => {
   const user = useSelector(selectCurrentUser);
   console.log(user);
+
   return (
     <>
       <div className="flex h-full w-full items-center justify-center bg-primary-blue">
