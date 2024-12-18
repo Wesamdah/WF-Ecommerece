@@ -19,10 +19,10 @@ export default function SignIn() {
   const canSubmit = [...Object.values(data)].every(Boolean);
 
   return (
-    <main className="w-screen h-screen bg-[#8BB2B2]  flex md:justify-between overflow-hidden relative">
-      <section className="p-20 bg-[white] boder rounded-r-[30px] h-full w-[60%] flex flex-col items-start justify-center  animate-loadForm">
-        <p className="px-8 text-[#525252] font-semibold text-3xl">Login </p>
-        <form onSubmit={handleSubmit} className="p-8 flex flex-col w-[100%]">
+    <main className="relative flex h-screen w-screen overflow-hidden bg-[#8BB2B2] md:justify-between">
+      <section className="boder flex h-full w-[60%] animate-loadForm flex-col items-start justify-center rounded-r-[30px] bg-[white] p-20">
+        <p className="px-8 text-3xl font-semibold text-[#525252]">Login </p>
+        <form onSubmit={handleSubmit} className="flex w-[100%] flex-col p-8">
           <Inputs
             name={"email"}
             type="email"
@@ -40,36 +40,36 @@ export default function SignIn() {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="bg-[#8BB2B2] h-14 font-semibold text-xl text-[white] rounded-lg"
+            className="h-14 rounded-lg bg-[#8BB2B2] text-xl font-semibold text-[white]"
           >
             Login
           </button>
         </form>
-        <p className="px-8 text-[#A1A1A1] text-sm">
+        <p className="px-8 text-sm text-[#A1A1A1]">
           {" "}
           Don't have account?{" "}
-          <Link to={"/signup"} className="text-[#8BB2B2] font-bold ">
+          <Link to={"/signup"} className="font-bold text-[#8BB2B2]">
             Create Account
           </Link>
         </p>
       </section>
-      <section className="m-10 flex flex-col w-[30%] h-full overflow-hidden ">
-        <img src={Logo} className="w-20 h-20" />
-        <p className="text-primary-black text-2xl font-bold mt-10">
+      <section className="m-10 flex h-full w-[30%] flex-col overflow-hidden">
+        <img src={Logo} className="h-20 w-20" />
+        <p className="mt-10 text-2xl font-bold text-primary-black">
           3D Models of
         </p>
-        <p className="text-primary-black text-4xl font-bold mb-8">
+        <p className="mb-8 text-4xl font-bold text-primary-black">
           {" "}
           Abstract Digital Art
         </p>
-        <p className="text-primary-black text-lg ">
+        <p className="text-lg text-primary-black">
           Make your design looks more attarctive with
           <br /> 3D abstract geometric digital art.
         </p>
       </section>
       <img
         src={tube3d}
-        className=" w-[400px] h-[400px] absolute bottom-0 right-[20%] animate-loadImage delay-500 "
+        className="absolute bottom-0 right-[20%] h-[400px] w-[400px] animate-loadImage delay-500"
       />
     </main>
   );
