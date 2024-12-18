@@ -8,7 +8,6 @@ const RequireAuth = () => {
   const dispatch = useDispatch();
 
   const user = useSelector(selectCurrentUser);
-
   if (!user) dispatch(getCurrentUser());
 
   // useEffect(() => {
