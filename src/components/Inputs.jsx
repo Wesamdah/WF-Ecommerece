@@ -22,8 +22,8 @@ export default function Inputs({
   return (
     <>
       {type === "password" ? (
-        <div className="w-[100%] mb-11 ">
-          <div className="w-[100%] relative ">
+        <div className="mb-11 w-[100%]">
+          <div className="relative w-[100%]">
             <input
               type={typo}
               placeholder={placeholder}
@@ -34,14 +34,14 @@ export default function Inputs({
               required
               onFocus={() => setFocus(true)}
               onBlur={() => setFocus(false)}
-              className="w-[100%] h-[50px] p-5  outline-none border border-[#ddd] rounded-lg focus:border-2 focus:border-solid focus:border-[#1d3557]"
+              className="h-[50px] w-[100%] rounded-lg border border-[#ddd] p-5 outline-none focus:border-2 focus:border-solid focus:border-[#1d3557]"
             />
             <Icon
               icon={
                 typo === "password" ? "heroicons-solid:eye" : "ri:eye-off-fill"
               }
               onClick={() => setTypo(typo === "password" ? "text" : "password")}
-              className="absolute right-5 top-1/2 -translate-y-2/4 text-[#219ebc] hover:text-[#1d3557] cursor-pointer "
+              className="absolute right-5 top-1/2 -translate-y-2/4 cursor-pointer text-orange hover:text-primary-black"
             />
           </div>
           {Regex
@@ -52,13 +52,13 @@ export default function Inputs({
                   id="pwdnote"
                   className={
                     !valid
-                      ? " flex justify-start  text-xs mt-4 items-center text-[#e63946]  "
+                      ? "mt-4 flex items-center justify-start text-xs text-[#e63946]"
                       : "hidden"
                   }
                 >
                   <Icon
                     icon={"material-symbols:info-outline"}
-                    className="text-xl mr-2"
+                    className="mr-2 text-xl"
                   />
                   8 to 24 characters. must includes uppercase and lowercase
                   letters , a number and a special charechtar. Allow special
@@ -69,13 +69,13 @@ export default function Inputs({
                   id="confirmnote"
                   className={
                     !valid
-                      ? "flex justify-start  text-xs mt-4 items-center text-[#e63946]"
+                      ? "mt-4 flex items-center justify-start text-xs text-[#e63946]"
                       : "hidden"
                   }
                 >
                   <Icon
                     icon={"material-symbols:info-outline"}
-                    className="text-xl mr-2"
+                    className="mr-2 text-xl"
                   />
                   Must match the first password input field
                 </p>
@@ -83,7 +83,7 @@ export default function Inputs({
             : null}
         </div>
       ) : (
-        <div className="w-[100%] relative mb-11">
+        <div className="relative mb-11 w-[100%]">
           <input
             type={typo}
             placeholder={placeholder}
@@ -94,20 +94,20 @@ export default function Inputs({
             required
             onFocus={() => setFocus(true)}
             onBlur={() => setFocus(false)}
-            className="w-[100%] h-[50px] p-5  outline-none border border-[#ddd] rounded-lg focus:border focus:border-solid focus:border-primary-black"
+            className="h-[50px] w-[100%] rounded-lg border border-[#ddd] p-5 outline-none focus:border focus:border-solid focus:border-primary-black"
           />
           {!valid && focus && type === "text" && (
             <p
               id="uidnote"
               className={
                 !valid
-                  ? "flex justify-start  text-xs mt-4 items-center text-[#e63946]"
+                  ? "mt-4 flex items-center justify-start text-xs text-[#e63946]"
                   : "hidden"
               }
             >
               <Icon
                 icon={"material-symbols:info-outline"}
-                className="text-xl mr-2"
+                className="mr-2 text-xl"
               />
               4 to 24 characters. must begin with a letter.
               Letters,number,sunderscores

@@ -9,7 +9,7 @@ import {
 } from "../features/auth/authSlice";
 // imags
 import Logo from "../assets/imgs/logo.png";
-import furniture from "../assets/imgs/furniture3d.png";
+import onlineShopping from "../assets/imgs/onlineShopping.png";
 // components
 import Inputs from "../components/Inputs";
 
@@ -69,19 +69,18 @@ export default function SignUp() {
   const canSubmit = [...Object.values(data)].every(Boolean);
 
   return (
-    <main className="relative flex h-screen w-screen overflow-hidden bg-[#8BB2B2] md:justify-between">
+    <main className="relative flex h-screen w-screen overflow-hidden bg-orange md:justify-between">
       <section className="m-10 flex h-full w-[30%] flex-col overflow-hidden">
         <img src={Logo} className="h-20 w-20" />
-        <p className="mt-10 text-2xl font-bold text-primary-black">
-          3D Models of
-        </p>
-        <p className="mb-8 text-4xl font-bold text-primary-black">
+        <p className="mt-10 text-2xl font-bold text-[#ffffff]">WF E-Store</p>
+        <p className="mb-8 text-4xl font-bold text-[#ffffff]">
           {" "}
-          Abstract Digital Art
+          E-Commerce Store
         </p>
-        <p className="text-lg text-primary-black">
-          Make your design looks more attarctive with
-          <br /> 3D abstract geometric digital art.
+        <p className="text-lg text-[#ffffff]">
+          Discover the best deals and shop your favorites,
+          <br />
+          all in one place!
         </p>
       </section>
       <section className="boder flex h-full w-[60%] animate-loadForm flex-col items-start justify-center rounded-l-[30px] bg-[white] p-20">
@@ -135,7 +134,7 @@ export default function SignUp() {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="h-14 rounded-lg bg-[#8BB2B2] text-xl font-semibold text-[white]"
+            className="h-14 rounded-lg bg-orange text-xl font-semibold text-[white]"
           >
             Create Account
           </button>
@@ -144,14 +143,14 @@ export default function SignUp() {
         {authStatus === "failed" && <p>Error: {authError}</p>}
         <p className="px-8 text-sm text-[#A1A1A1]">
           Already have an account?{" "}
-          <Link to={"/signin"} className="font-bold text-[#8BB2B2]">
+          <Link to={"/signin"} className="font-bold text-orange">
             Login
           </Link>
         </p>
       </section>
       <img
-        src={furniture}
-        className="absolute bottom-0 left-[20%] h-[400px] w-[400px] animate-loadImage delay-500"
+        src={onlineShopping}
+        className="absolute bottom-0 left-[10%] h-[400px] w-[400px] animate-loadImage delay-500"
       />
     </main>
   );

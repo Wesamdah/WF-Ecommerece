@@ -9,7 +9,7 @@ import {
 } from "../features/auth/authSlice";
 // images
 import Logo from "../assets/imgs/logo.png";
-import tube3d from "../assets/imgs/tube3d.png";
+import image2 from "../assets/imgs/image2.png";
 // components
 import Inputs from "../components/Inputs";
 
@@ -41,7 +41,7 @@ export default function SignIn() {
   const canSubmit = [...Object.values(data)].every(Boolean);
 
   return (
-    <main className="relative flex h-screen w-screen overflow-hidden bg-[#8BB2B2] md:justify-between">
+    <main className="relative flex h-screen w-screen overflow-hidden bg-orange md:justify-between">
       <section className="boder flex h-full w-[60%] animate-loadForm flex-col items-start justify-center rounded-r-[30px] bg-[white] p-20">
         <p className="px-8 text-3xl font-semibold text-[#525252]">Login </p>
         <form onSubmit={handleSubmit} className="flex w-[100%] flex-col p-8">
@@ -62,38 +62,35 @@ export default function SignIn() {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="h-14 rounded-lg bg-[#8BB2B2] text-xl font-semibold text-[white]"
+            className="h-14 rounded-lg bg-orange text-xl font-semibold text-[white]"
           >
             Login
           </button>
         </form>
-        {authStatus === "loading" && <p>Logging in...</p>}
-        {authStatus === "failed" && <p>Error: {authError}</p>}
         <p className="px-8 text-sm text-[#A1A1A1]">
           {" "}
           Don't have account?{" "}
-          <Link to={"/signup"} className="font-bold text-[#8BB2B2]">
+          <Link to={"/signup"} className="font-bold text-orange">
             Create Account
           </Link>
         </p>
       </section>
       <section className="m-10 flex h-full w-[30%] flex-col overflow-hidden">
         <img src={Logo} className="h-20 w-20" />
-        <p className="mt-10 text-2xl font-bold text-primary-black">
-          3D Models of
-        </p>
-        <p className="mb-8 text-4xl font-bold text-primary-black">
+        <p className="mt-10 text-2xl font-bold text-[#ffffff]">WF E-Store</p>
+        <p className="mb-8 text-4xl font-bold text-[#ffffff]">
           {" "}
-          Abstract Digital Art
+          E-Commerce Store
         </p>
-        <p className="text-lg text-primary-black">
-          Make your design looks more attarctive with
-          <br /> 3D abstract geometric digital art.
+        <p className="text-lg text-[#ffffff]">
+          Discover the best deals and shop your favorites,
+          <br />
+          all in one place!
         </p>
       </section>
       <img
-        src={tube3d}
-        className="absolute bottom-0 right-[20%] h-[400px] w-[400px] animate-loadImage delay-500"
+        src={image2}
+        className="absolute bottom-0 right-[10%] h-[400px] w-[400px] animate-loadImage delay-500"
       />
     </main>
   );
