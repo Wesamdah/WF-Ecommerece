@@ -67,6 +67,8 @@ export default function SignIn() {
             Login
           </button>
         </form>
+        {authStatus === "loading" && <p>Logging in...</p>}
+        {authStatus === "failed" && <p>Error: {authError}</p>}
         <p className="px-8 text-sm text-[#A1A1A1]">
           {" "}
           Don't have account?{" "}
