@@ -1,5 +1,7 @@
 import React from "react";
+import { Link, NavLink } from "react-router-dom";
 import { Icon } from "@iconify/react/dist/iconify.js";
+// imgs
 import mainLogo from "../assets/imgs/main-logo.png";
 
 const SvgIcon = ({ theIcon }) => (
@@ -9,7 +11,7 @@ const SvgIcon = ({ theIcon }) => (
 const GenderOption = ({ label, selectedGender, onClick }) => (
   <span
     onClick={() => onClick(label)}
-    className={`${selectedGender === label ? "text-[black]" : "text-[gray]"} hover:texy-[black] cursor-pointer`}
+    className={`${selectedGender === label ? "text-[black]" : "text-[gray]"} cursor-pointer hover:text-orange`}
   >
     {label}
   </span>
@@ -23,7 +25,14 @@ export default function Header({ setGender, gender }) {
     <>
       <section className="flex h-9 w-full flex-row items-center justify-between">
         <div className="w-[40%]">
-          <img src={mainLogo} alt="logo!" className="h-9 w-44 cursor-pointer" />
+          <NavLink to={"/"}>
+            <img
+              onClick={() => navigate("/")}
+              src={mainLogo}
+              alt="logo!"
+              className="h-9 w-44 cursor-pointer"
+            />
+          </NavLink>
         </div>
         <div className="flex w-[40%] flex-row justify-between">
           <div className="flex flex-row justify-between">

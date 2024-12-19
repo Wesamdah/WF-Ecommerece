@@ -6,8 +6,6 @@ const UserInfo = React.memo(
   () => {
     const user = useSelector(selectCurrentUser);
 
-    console.log(user);
-
     return (
       <div className="flex h-full w-full items-center justify-center bg-primary-blue">
         <div className="flex h-44 flex-col items-start justify-center bg-primary-black p-3">

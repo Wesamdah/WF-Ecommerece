@@ -21,7 +21,7 @@ const PublicLayout = () => {
             </button>
           </NavLink>
 
-          <NavLink to="userInfo">
+          <NavLink to="/userInfo">
             <button className="h-8 w-20 rounded-md bg-orange text-[#ffffff]">
               User Info
             </button>
