@@ -1,8 +1,8 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Icon } from "@iconify/react/dist/iconify.js";
 // imgs
-import mainLogo from "../assets/imgs/main-logo.png";
+import Logo from "../assets/imgs/iconLogo.png";
 
 const SvgIcon = ({ theIcon }) => (
   <Icon icon={theIcon} className="mr-2 text-2xl hover:text-orange" />
@@ -25,13 +25,17 @@ export default function Header({ setGender, gender }) {
     <>
       <section className="flex h-9 w-full flex-row items-center justify-between">
         <div className="w-[40%]">
-          <NavLink to={"/"}>
+          <NavLink to={"/"} className="flex items-center">
             <img
               onClick={() => navigate("/")}
-              src={mainLogo}
+              src={Logo}
               alt="logo!"
-              className="h-9 w-44 cursor-pointer"
+              className="h-12 w-16 cursor-pointer"
             />
+            <div className="flex w-1/3 flex-col bg-gradient-to-r from-[#d62828] to-[#fcbf49] bg-clip-text pl-4 text-lg font-bold text-[transparent]">
+              <span>Wessam & Firas</span>
+              <span className="self-start">FASHION</span>
+            </div>
           </NavLink>
         </div>
         <div className="flex w-[40%] flex-row justify-between">
@@ -60,20 +64,20 @@ export default function Header({ setGender, gender }) {
       </section>
       <section className="mt-10 flex h-8 w-full items-center space-x-4 text-lg font-medium text-[gray]">
         <GenderOption
-          label="Woman"
+          label="office"
           selectedGender={gender}
           onClick={handleChooseGender}
         />
         <GenderOption
-          label="Men"
+          label="kitchen"
           selectedGender={gender}
           onClick={handleChooseGender}
         />
-        <GenderOption
+        {/* <GenderOption
           label="Kids"
           selectedGender={gender}
           onClick={handleChooseGender}
-        />
+        /> */}
       </section>
       <hr className="w-full text-[#eee]" />
     </>

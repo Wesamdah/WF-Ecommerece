@@ -6,6 +6,7 @@ import {
   loginUser,
   selectAuthError,
   selectAuthStatus,
+  getCurrentUser,
 } from "../features/auth/authSlice";
 // images
 import Logo from "../assets/imgs/logo.png";
@@ -17,9 +18,11 @@ export default function SignIn() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+
   const dispatch = useDispatch();
   const authStatus = useSelector(selectAuthStatus);
   const authError = useSelector(selectAuthError);
+  const user = useSelector(getCurrentUser);
 
   const [data, setData] = useState({
     email: "",
@@ -34,9 +37,9 @@ export default function SignIn() {
   useEffect(() => {
     if (authStatus === "succeeded" && !authError) {
       navigate(from, { replace: true });
-      // navigate("/");
     }
-  }, [authStatus, authError, navigate]);
+    if (!user) navigate("/");
+  }, [authStatus, authError, navigate, user]);
 
   const canSubmit = [...Object.values(data)].every(Boolean);
 
