@@ -71,8 +71,12 @@ export default function SignUp() {
   return (
     <main className="relative flex h-screen w-screen overflow-hidden bg-orange md:justify-between">
       <section className="m-10 flex h-full w-[30%] flex-col overflow-hidden">
-        <img src={Logo} className="h-20 w-20" />
-        <p className="mt-10 text-2xl font-bold text-[#ffffff]">WF E-Store</p>
+        <div className="mb-6 flex items-center">
+          <img src={Logo} className="h-40 w-40" />
+          <p className="ml-3 mt-10 text-6xl font-bold text-[#ffffff]">
+            WF Store
+          </p>
+        </div>
         <p className="mb-8 text-4xl font-bold text-[#ffffff]">
           {" "}
           E-Commerce Store

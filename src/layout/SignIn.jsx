@@ -6,6 +6,7 @@ import {
   loginUser,
   selectAuthError,
   selectAuthStatus,
+  getCurrentUser,
 } from "../features/auth/authSlice";
 // images
 import Logo from "../assets/imgs/logo.png";
@@ -17,9 +18,11 @@ export default function SignIn() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+
   const dispatch = useDispatch();
   const authStatus = useSelector(selectAuthStatus);
   const authError = useSelector(selectAuthError);
+  const user = useSelector(getCurrentUser);
 
   const [data, setData] = useState({
     email: "",
@@ -34,9 +37,9 @@ export default function SignIn() {
   useEffect(() => {
     if (authStatus === "succeeded" && !authError) {
       navigate(from, { replace: true });
-      // navigate("/");
     }
-  }, [authStatus, authError, navigate]);
+    if (!user) navigate("/");
+  }, [authStatus, authError, navigate, user]);
 
   const canSubmit = [...Object.values(data)].every(Boolean);
 
@@ -78,8 +81,12 @@ export default function SignIn() {
         </p>
       </section>
       <section className="m-10 flex h-full w-[30%] flex-col overflow-hidden">
-        <img src={Logo} className="h-20 w-20" />
-        <p className="mt-10 text-2xl font-bold text-[#ffffff]">WF E-Store</p>
+        <div className="mb-6 flex items-center">
+          <img src={Logo} className="h-40 w-40" />
+          <p className="ml-3 mt-10 text-6xl font-bold text-[#ffffff]">
+            WF Store
+          </p>
+        </div>
         <p className="mb-8 text-4xl font-bold text-[#ffffff]">
           {" "}
           E-Commerce Store
