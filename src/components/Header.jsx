@@ -8,17 +8,17 @@ const SvgIcon = ({ theIcon }) => (
   <Icon icon={theIcon} className="mr-2 text-2xl hover:text-orange" />
 );
 
-const GenderOption = ({ label, selectedGender, onClick }) => (
+const GenderOption = ({ label, selectedType, onClick }) => (
   <span
     onClick={() => onClick(label)}
-    className={`${selectedGender === label ? "text-[black]" : "text-[gray]"} cursor-pointer hover:text-orange`}
+    className={`${selectedType === label ? "text-[black]" : "text-[gray]"} cursor-pointer capitalize hover:text-orange`}
   >
     {label}
   </span>
 );
-export default function Header({ setGender, gender }) {
-  const handleChooseGender = (selectedGender) => {
-    setGender(selectedGender);
+export default function Header({ setType, type }) {
+  const handleChooseGender = (selectedType) => {
+    setType(selectedType);
   };
 
   return (
@@ -65,19 +65,14 @@ export default function Header({ setGender, gender }) {
       <section className="mt-10 flex h-8 w-full items-center space-x-4 text-lg font-medium text-[gray]">
         <GenderOption
           label="office"
-          selectedGender={gender}
+          selectedType={type}
           onClick={handleChooseGender}
         />
         <GenderOption
           label="kitchen"
-          selectedGender={gender}
+          selectedType={type}
           onClick={handleChooseGender}
         />
-        {/* <GenderOption
-          label="Kids"
-          selectedGender={gender}
-          onClick={handleChooseGender}
-        /> */}
       </section>
       <hr className="w-full text-[#eee]" />
     </>

@@ -6,8 +6,9 @@ import PublicLayout from "./layout/PublicLayout";
 import Welcome from "./components/Welcome";
 import RequireAuth from "./utils/requireAuth";
 import UserInfo from "./components/UserInfo";
-// tesst
+// components
 import UserLayout from "./layout/userLayout/UserLayout";
+import ProductsList from "./features/products/ProductsList";
 
 function App() {
   return (
@@ -22,7 +23,10 @@ function App() {
 
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/main" element={<UserLayout />} />
+
+        <Route path="/main" element={<UserLayout />}>
+          <Route index element={<ProductsList />} />
+        </Route>
       </Routes>
     </>
   );
