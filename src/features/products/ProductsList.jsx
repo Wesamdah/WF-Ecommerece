@@ -1,9 +1,13 @@
 import React from "react";
 // Images
 import backGround from "../../assets/imgs/largeBackGround.png";
+// redux
+import { useSelector } from "react-redux";
+import { selectAllProducts } from "./productsSlice";
 // components
 import ProductCard from "../../components/ProductCard";
 export default function ProductsList() {
+  const allProducts = useSelector(selectAllProducts);
   return (
     <main>
       <section className="relative h-[420px] w-screen">
@@ -22,7 +26,13 @@ export default function ProductsList() {
       </section>
       <section className="p-12">
         <div>
-          <p className="uppercase text-[black]">trending now</p>
+          <p className="text-3xl font-semibold uppercase text-[black]">
+            trending now
+          </p>
+          <div id="trending_now" className="mt-5">
+            {/* {allProducts.map(product)=>} */}
+            <ProductCard allProducts={allProducts} />
+          </div>
         </div>
       </section>
     </main>
