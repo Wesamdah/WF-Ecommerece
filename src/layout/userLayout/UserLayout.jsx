@@ -14,8 +14,6 @@ export default function UserLayout() {
   const dispatch = useDispatch();
   const allProducts = useSelector(selectAllProducts);
 
-  // console.log(allProducts.filter((product) => product.category === "kitchen"));
-
   const [type, setType] = useState("");
   const [searchResult, setSearchResult] = useState("");
 
@@ -26,11 +24,10 @@ export default function UserLayout() {
   }, [dispatch, allProducts.length]);
 
   return (
-    <div className="h-screen w-screen overflow-x-hidden overflow-y-scroll bg-[white] px-14 py-8">
+    <div className="h-screen w-screen overflow-x-hidden overflow-y-scroll bg-[white]">
       <Header setType={setType} type={type} />
       <ProductSearchBar
         allProducts={allProducts}
-        searchResult={searchResult}
         setSearchResult={setSearchResult}
         type={type}
       />
