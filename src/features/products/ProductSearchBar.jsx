@@ -5,7 +5,6 @@ export default function ProductSearchBar({
   allProducts,
   type,
   setSearchResult,
-  searchResult,
 }) {
   const [activeSeacrch, setActiveSearch] = useState(false);
   const [searchType, setSearchType] = useState("");
@@ -30,7 +29,7 @@ export default function ProductSearchBar({
   const TypeOption = ({ label, selectedType, onClick }) => (
     <span
       onClick={() => onClick(label)}
-      className={`${selectedType === label ? "text-[black]" : "text-[gray]"} cursor-pointer font-semibold capitalize hover:text-orange`}
+      className={`${selectedType === label ? "text-[black]" : "text-[gray]"} cursor-pointer font-semibold uppercase hover:text-orange`}
     >
       {label}
     </span>
@@ -62,7 +61,7 @@ export default function ProductSearchBar({
   };
 
   return (
-    <section className="flex h-20 w-full items-center justify-between py-8">
+    <section className="flex h-20 w-full items-center justify-between px-14">
       <div className="felx w-1/3 justify-between space-x-4">
         <TypeOption
           label="sale"

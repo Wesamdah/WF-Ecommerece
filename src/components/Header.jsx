@@ -11,7 +11,7 @@ const SvgIcon = ({ theIcon }) => (
 const GenderOption = ({ label, selectedType, onClick }) => (
   <span
     onClick={() => onClick(label)}
-    className={`${selectedType === label ? "text-[black]" : "text-[gray]"} cursor-pointer capitalize hover:text-orange`}
+    className={`${selectedType === label ? "text-[black]" : "text-[gray]"} cursor-pointer uppercase hover:text-orange`}
   >
     {label}
   </span>
@@ -22,7 +22,7 @@ export default function Header({ setType, type }) {
   };
 
   return (
-    <>
+    <div className="px-14 pb-2 pt-8">
       <section className="flex h-9 w-full flex-row items-center justify-between">
         <div className="w-[40%]">
           <NavLink to={"/"} className="flex items-center">
@@ -75,6 +75,6 @@ export default function Header({ setType, type }) {
         />
       </section>
       <hr className="w-full text-[#eee]" />
-    </>
+    </div>
   );
 }
