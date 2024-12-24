@@ -11,7 +11,7 @@ export default function ProductCard({ productId, full }) {
 
   return (
     <>
-      <div className={`${full ? "w-full" : "w-48"} h-[300px] bg-[#eee]`}>
+      <div className={`${full ? "w-full" : "w-48"} h-[300px]`}>
         <div className="relative bg-[red]">
           <img src={testImage} className="h-[192px]" />
           <Icon
@@ -25,13 +25,13 @@ export default function ProductCard({ productId, full }) {
           </span>
         </div>
         <div className="mt-1 flex flex-col">
-          <p className="mb-1 uppercase text-[#91929D]">
+          <p className="mb-1 text-[12px] uppercase text-[#91929D]">
             {product.company} / {product.category}
           </p>
-          <p className="capitalize">{product.name}</p>
+          <p className="text-[14px] capitalize">{product.name}</p>
           <p className="font-semibold">
             {product.price.toString().slice(0, 2)},
-            {product.price.toString().slice(2, 3)} $
+            {product.price.toString().slice(2, 3)}
           </p>
         </div>
         <p>({product.numOfReviews})</p>
