@@ -6,7 +6,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { useSelector } from "react-redux";
 import { selectProductById } from "../features/products/productsSlice";
 
-export default function ProductCard({ productId, full }) {
+export default function ProductCard({ productId, full, color }) {
   const product = useSelector((state) => selectProductById(state, productId));
 
   return (
@@ -29,9 +29,22 @@ export default function ProductCard({ productId, full }) {
             {product.company} / {product.category}
           </p>
           <p className="text-[14px] capitalize">{product.name}</p>
+
+          {color && (
+            <div className="my-2 flex h-4 w-[100px] items-center justify-start space-x-2">
+              {product.colors
+                .filter((_, index) => index < 4)
+                .map((color, index) => (
+                  <div
+                    key={index}
+                    className={`h-5 w-5 rounded-full bg-[${color}] cursor-pointer border-2 border-[#ddd]`}
+                  ></div>
+                ))}
+            </div>
+          )}
           <p className="font-semibold">
             {product.price.toString().slice(0, 2)},
-            {product.price.toString().slice(2, 3)}
+            {product.price.toString().slice(2, 3)} $
           </p>
         </div>
         <p>({product.numOfReviews})</p>

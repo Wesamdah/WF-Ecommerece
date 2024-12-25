@@ -1,5 +1,9 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { useState } from "react";
+// imgs
+import firstResult from "../../assets/imgs/quick11.jpg";
+import secondResult from "../../assets/imgs/quick22.jpg";
+import thirdResult from "../../assets/imgs/quick3.jpg";
 
 export default function ProductSearchBar({
   allProducts,
@@ -62,7 +66,7 @@ export default function ProductSearchBar({
 
   return (
     <section className="flex h-20 w-full items-center justify-between px-14">
-      <div className="felx w-1/3 justify-between space-x-4">
+      <div className="felx w-[30%] justify-between space-x-4">
         <TypeOption
           label="sale"
           onClick={handleSearchType}
@@ -79,7 +83,7 @@ export default function ProductSearchBar({
           selectedType={searchType}
         />
       </div>
-      <div className="relative flex w-2/3 justify-end">
+      <div className="relative flex w-[70%] justify-end">
         <form
           onSubmit={handleSubmit}
           className={`${activeSeacrch ? "w-full" : "w-96"} relative h-10 duration-300`}
@@ -89,9 +93,9 @@ export default function ProductSearchBar({
             id="search"
             className="relative h-full w-full border-2 border-[#eee] p-3 pl-9 font-light caret-orange outline-none focus:border-2 focus:border-orange focus:font-normal"
             placeholder="Search products, articles, faq, ..."
-            onClick={() => setActiveSearch(true)}
-            onBlur={() => setActiveSearch(false)}
+            onClick={() => setActiveSearch(!activeSeacrch)}
             onChange={handleChange}
+            autoComplete="off"
           />
           <Icon
             icon={"lucide:search"}
@@ -103,6 +107,66 @@ export default function ProductSearchBar({
             Search
           </button>
         </form>
+        <div
+          id="drop_down"
+          //         ${activeSeacrch ? "h-96" : "h-0"}
+          className={`absolute top-[60px] z-10 flex ${activeSeacrch ? "h-96" : "h-0"} w-full overflow-hidden bg-[white] duration-300`}
+        >
+          <div className="w-1/3 bg-orange"></div>
+          <div className="w-2/3 p-5">
+            <p className="mb-2 text-[#777]">Quick access</p>
+            <div className="flex h-full w-full cursor-pointer gap-2">
+              <div className="group relative h-[90%] w-[25%]">
+                <img
+                  className="h-full w-full object-cover"
+                  src={firstResult}
+                  alt="First Result"
+                />
+                <div className="absolute bottom-0 flex h-0 w-full flex-col items-center justify-center overflow-hidden bg-orange text-[white] transition-all duration-300 group-hover:h-20">
+                  <p>Spring Sale</p>
+                  <p>Up to 60% off</p>
+                </div>
+              </div>
+
+              <div className="group relative h-[90%] w-[25%]">
+                <img
+                  className="h-full w-full object-cover"
+                  src={secondResult}
+                  alt="Second Result"
+                />
+                <div className="absolute top-0 flex h-0 w-full flex-col items-center justify-evenly overflow-hidden bg-[transparent] font-bold text-[white] transition-all duration-300 group-hover:h-full [&_p]:text-center">
+                  <p>Till March 25th</p>
+                  <p>
+                    Sale on
+                    <br />
+                    Sneakers
+                  </p>
+                  <p>20% Off</p>
+                </div>
+              </div>
+
+              <div className="group relative h-[90%] w-[25%] overflow-hidden">
+                <img
+                  className="h-full w-full object-cover"
+                  src={thirdResult}
+                  alt="Third Result"
+                />
+                <div className="absolute left-[-200px] top-0 flex h-full w-full flex-col items-center justify-center bg-[transparent] font-bold text-[white] transition-all duration-300 group-hover:left-0 [&_p]:text-center">
+                  <p>
+                    NEW
+                    <br />
+                    COLLECTION
+                  </p>
+                  <p className="text-sm font-normal">
+                    SPRING/SUMMER <br /> 2021
+                  </p>
+                </div>
+              </div>
+
+              <div className="h-[90%] w-[25%] bg-orange"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
