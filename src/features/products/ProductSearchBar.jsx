@@ -12,6 +12,8 @@ export default function ProductSearchBar({
 }) {
   const [activeSeacrch, setActiveSearch] = useState(false);
   const [searchType, setSearchType] = useState("");
+  const [valueOfInput, setValueOfInput] = useState("");
+  const [recentSearches, setRecentSearches] = useState([]);
 
   const typeResults = type
     ? allProducts.filter((product) => product.category.includes(type))
@@ -45,9 +47,7 @@ export default function ProductSearchBar({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  };
 
-  const handleChange = (e) => {
     let resutArray = "";
     if (!e.target.value && !searchType) return setSearchResult(allProducts);
     if (searchType === "brands") {
@@ -62,6 +62,21 @@ export default function ProductSearchBar({
       );
     }
     setSearchResult(resutArray);
+
+    if (!valueOfInput.trim()) return;
+
+    setRecentSearches((prevSearches) => {
+      const updatedSearches = [...prevSearches];
+      if (updatedSearches.length >= 6) {
+        updatedSearches.shift();
+      }
+      updatedSearches.push(valueOfInput);
+      return updatedSearches;
+    });
+  };
+
+  const handleChange = (e) => {
+    setValueOfInput(e.target.value);
   };
 
   return (
@@ -96,12 +111,15 @@ export default function ProductSearchBar({
             onClick={() => setActiveSearch(!activeSeacrch)}
             onChange={handleChange}
             autoComplete="off"
+            aria-label="Search"
           />
           <Icon
             icon={"lucide:search"}
             className="text- absolute left-2 top-1/2 -translate-y-1/2 text-2xl"
+            aria-hidden="true"
           />
           <button
+            type="submit"
             className={`${activeSeacrch ? "block" : "hidden"} absolute right-5 top-1/2 flex h-7 w-24 -translate-y-1/2 items-center justify-center bg-orange p-2 text-[white]`}
           >
             Search
@@ -109,14 +127,15 @@ export default function ProductSearchBar({
         </form>
         <div
           id="drop_down"
-          //         ${activeSeacrch ? "h-96" : "h-0"}
-          className={`absolute top-[60px] z-10 flex ${activeSeacrch ? "h-96" : "h-0"} w-full overflow-hidden bg-[white] duration-300`}
+          className={`absolute top-[60px] z-10 flex drop-shadow-[0_8px_16px_rgba(35,38,59,1)] ${activeSeacrch ? "h-96" : "h-0"} w-full overflow-hidden bg-[white] duration-300`}
         >
-          <div className="w-1/3 bg-orange"></div>
+          <div className="w-1/3 p-5">
+            <p className="mb-2 text-[#777]">Recent searches</p>
+          </div>
           <div className="w-2/3 p-5">
             <p className="mb-2 text-[#777]">Quick access</p>
             <div className="flex h-full w-full cursor-pointer gap-2">
-              <div className="group relative h-[90%] w-[25%]">
+              <div className="group relative h-[90%] w-[33%]">
                 <img
                   className="h-full w-full object-cover"
                   src={firstResult}
@@ -128,7 +147,7 @@ export default function ProductSearchBar({
                 </div>
               </div>
 
-              <div className="group relative h-[90%] w-[25%]">
+              <div className="group relative h-[90%] w-[33%]">
                 <img
                   className="h-full w-full object-cover"
                   src={secondResult}
@@ -144,8 +163,7 @@ export default function ProductSearchBar({
                   <p>20% Off</p>
                 </div>
               </div>
-
-              <div className="group relative h-[90%] w-[25%] overflow-hidden">
+              <div className="group relative h-[90%] w-[33%] overflow-hidden">
                 <img
                   className="h-full w-full object-cover"
                   src={thirdResult}
@@ -162,8 +180,6 @@ export default function ProductSearchBar({
                   </p>
                 </div>
               </div>
-
-              <div className="h-[90%] w-[25%] bg-orange"></div>
             </div>
           </div>
         </div>

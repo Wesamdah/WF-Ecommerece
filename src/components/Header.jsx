@@ -25,14 +25,14 @@ export default function Header({ setType, type }) {
     <div className="px-14 pb-2 pt-8">
       <section className="flex h-9 w-full flex-row items-center justify-between">
         <div className="w-[40%]">
-          <NavLink to={"/"} className="flex items-center">
+          <NavLink to={"/"} className="flex w-fit items-center">
             <img
               onClick={() => navigate("/")}
               src={Logo}
               alt="logo!"
               className="h-12 w-16 cursor-pointer"
             />
-            <div className="flex w-1/3 flex-col bg-gradient-to-r from-[#d62828] to-[#fcbf49] bg-clip-text pl-4 text-lg font-bold text-[transparent]">
+            <div className="flex w-fit flex-col bg-gradient-to-r from-[#d62828] to-[#fcbf49] bg-clip-text pl-4 text-lg font-bold text-[transparent]">
               <span>Wessam & Firas</span>
               <span className="self-start">FASHION</span>
             </div>
