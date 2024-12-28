@@ -1,8 +1,10 @@
-import React from "react";
+import { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Icon } from "@iconify/react/dist/iconify.js";
 // imgs
 import Logo from "../assets/imgs/iconLogo.png";
+// components
+import UserPopup from "./UserPopup";
 
 const SvgIcon = ({ theIcon }) => (
   <Icon icon={theIcon} className="mr-2 text-2xl hover:text-orange" />
@@ -11,27 +13,50 @@ const SvgIcon = ({ theIcon }) => (
 const GenderOption = ({ label, selectedType, onClick }) => (
   <span
     onClick={() => onClick(label)}
-    className={`${selectedType === label ? "text-[black]" : "text-[gray]"} cursor-pointer uppercase hover:text-orange`}
+    className={`${
+      selectedType === label ? "text-[black]" : "text-[gray]"
+    } cursor-pointer uppercase hover:text-orange`}
   >
     {label}
   </span>
 );
+
 export default function Header({ setType, type }) {
+  const [isUserPopupOpen, setIsUserPopupOpen] = useState(false);
+  const userPopupRef = useRef(null);
+
   const handleChooseGender = (selectedType) => {
     setType(selectedType);
   };
+
+  const toggleUserPopup = () => {
+    setIsUserPopupOpen(!isUserPopupOpen);
+  };
+
+  // function to close the popop whenever the user clicks anywhere on screen
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        userPopupRef.current &&
+        !userPopupRef.current.contains(event.target)
+      ) {
+        setIsUserPopupOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [userPopupRef]);
 
   return (
     <div className="px-14 pb-2 pt-8">
       <section className="flex h-9 w-full flex-row items-center justify-between">
         <div className="w-[40%]">
           <NavLink to={"/"} className="flex items-center">
-            <img
-              onClick={() => navigate("/")}
-              src={Logo}
-              alt="logo!"
-              className="h-12 w-16 cursor-pointer"
-            />
+            <img src={Logo} alt="logo!" className="h-12 w-16 cursor-pointer" />
             <div className="flex w-1/3 flex-col bg-gradient-to-r from-[#d62828] to-[#fcbf49] bg-clip-text pl-4 text-lg font-bold text-[transparent]">
               <span>Wessam & Firas</span>
               <span className="self-start">FASHION</span>
@@ -49,13 +74,19 @@ export default function Header({ setType, type }) {
               Find a store
             </p>
           </div>
-          <div className="flex flex-row justify-between space-x-3">
+          <div className="relative flex flex-row justify-between space-x-3">
             <span className="cursor-pointer">
               <SvgIcon theIcon="mdi:heart-outline" />
             </span>
-            <span className="cursor-pointer">
+            <span
+              className="cursor-pointer"
+              onClick={toggleUserPopup}
+              ref={userPopupRef}
+            >
               <SvgIcon theIcon="iconamoon:profile" />
+              {isUserPopupOpen && <UserPopup />}
             </span>
+
             <span className="cursor-pointer">
               <SvgIcon theIcon="ic:outline-local-grocery-store" />
             </span>

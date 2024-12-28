@@ -14,19 +14,12 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/*" element={<PublicLayout />}>
-          <Route index element={<Welcome />} />
-          <Route element={<RequireAuth />}>
-            <Route path="userInfo" element={<UserInfo />} />
-          </Route>
+        <Route path="/*" element={<UserLayout />}>
+          <Route index element={<ProductsList />} />
         </Route>
 
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
-
-        <Route path="/main" element={<UserLayout />}>
-          <Route index element={<ProductsList />} />
-        </Route>
       </Routes>
     </>
   );
