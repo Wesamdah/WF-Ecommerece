@@ -8,11 +8,14 @@ import {
   selectAuthStatus,
   getCurrentUser,
 } from "../features/auth/authSlice";
-// images
+// assets
 import Logo from "../assets/imgs/logo.png";
 import image2 from "../assets/imgs/image2.png";
+import { Icon } from "@iconify/react/dist/iconify.js";
 // components
 import Inputs from "../components/Inputs";
+
+const SvgIcon = ({ theIcon }) => <Icon icon={theIcon} className="text-3xl" />;
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -65,9 +68,13 @@ export default function SignIn() {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="h-14 rounded-lg bg-orange text-xl font-semibold text-[white]"
+            className="flex h-14 items-center justify-center rounded-lg bg-orange text-xl font-semibold text-[white]"
           >
-            Login
+            {authStatus === "loading" ? (
+              <SvgIcon theIcon="svg-spinners:180-ring-with-bg" />
+            ) : (
+              <p>Login</p>
+            )}
           </button>
         </form>
         {authStatus === "loading" && <p>Logging in...</p>}
