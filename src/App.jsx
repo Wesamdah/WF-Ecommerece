@@ -2,12 +2,8 @@ import { Router, Routes, Route } from "react-router-dom";
 // layouts
 import SignUp from "./layout/SignUp";
 import SignIn from "./layout/SignIn";
-import PublicLayout from "./layout/PublicLayout";
-import Welcome from "./components/Welcome";
-import RequireAuth from "./utils/requireAuth";
-import UserInfo from "./components/UserInfo";
-// components
 import UserLayout from "./layout/userLayout/UserLayout";
+// pages
 import ProductsList from "./features/products/ProductsList";
 
 function App() {
