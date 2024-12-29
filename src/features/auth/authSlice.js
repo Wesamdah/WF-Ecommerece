@@ -5,12 +5,12 @@ import axiosClient from "../../api/axiosClient";
 // login user thunk
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
-  async (credentials) => {
+  async (credentials, rejectWithValue) => {
     try {
       const response = await axiosClient.post("/auth/login", credentials, {});
       return response.data;
     } catch (error) {
-      return error.message;
+      return rejectWithValue(error.response?.data || error.message);
     }
   },
 );
