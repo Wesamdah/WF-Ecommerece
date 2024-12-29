@@ -4,6 +4,7 @@ import usersReducer from "../features/users/usersSlice";
 import reviewsReducer from "../features/reviews/reviewsSlice";
 import ordersReducer from "../features/orders/ordersSlice";
 import authReducer from "../features/auth/authSlice";
+import popupReducer from "../features/popup/popupSlice"
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     users: usersReducer,
     reviews: reviewsReducer,
     orders: ordersReducer,
-    auth: authReducer
+    auth: authReducer,
+    popup: popupReducer
   },
 });

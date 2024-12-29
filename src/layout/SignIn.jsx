@@ -6,8 +6,8 @@ import {
   loginUser,
   selectAuthError,
   selectAuthStatus,
-  getCurrentUser,
 } from "../features/auth/authSlice";
+import { showPopup } from "../features/popup/popupSlice";
 // assets
 import Logo from "../assets/imgs/logo.png";
 import image2 from "../assets/imgs/image2.png";
@@ -25,7 +25,6 @@ export default function SignIn() {
   const dispatch = useDispatch();
   const authStatus = useSelector(selectAuthStatus);
   const authError = useSelector(selectAuthError);
-  const user = useSelector(getCurrentUser);
 
   const [data, setData] = useState({
     email: "",
@@ -41,8 +40,12 @@ export default function SignIn() {
     if (authStatus === "succeeded" && !authError) {
       navigate(from, { replace: true });
     }
-    if (!user) navigate("/");
-  }, [authStatus, authError, navigate, user]);
+    if (authStatus === "failed" && authError) {
+      dispatch(
+        showPopup({ message: authError.msg || authError, type: "error" }),
+      );
+    }
+  }, [authStatus, authError, navigate, from]);
 
   const canSubmit = [...Object.values(data)].every(Boolean);
 
@@ -77,8 +80,6 @@ export default function SignIn() {
             )}
           </button>
         </form>
-        {authStatus === "loading" && <p>Logging in...</p>}
-        {authStatus === "failed" && <p>Error: {authError}</p>}
         <p className="px-8 text-sm text-[#A1A1A1]">
           {" "}
           Don't have account?{" "}

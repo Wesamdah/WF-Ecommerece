@@ -5,25 +5,26 @@ import axiosClient from "../../api/axiosClient";
 // login user thunk
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
-  async (credentials, rejectWithValue) => {
+  async (credentials, { rejectWithValue }) => {
     try {
       const response = await axiosClient.post("/auth/login", credentials, {});
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(error.response?.data);
     }
   },
 );
 
+
 // register user thunk
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
-  async (credentials, rejectWithValue) => {
+  async (credentials, { rejectWithValue }) => {
     try {
       const response = await axiosClient.post("/auth/register", credentials);
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response?.data);
     }
   },
 );
@@ -35,20 +36,20 @@ export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
     console.log(response.data);
     return response.data;
   } catch (error) {
-    return error.response.data;
+    return error.response?.data;
   }
 });
 
 //fetch current user thunk
 export const getCurrentUser = createAsyncThunk(
   "auth/getCurrentUser",
-  async (rejectWithValue) => {
+  async () => {
     try {
       const response = await axiosClient.get("/users/getCurrentUser");
       console.log(response.data);
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response?.data);
     }
   },
 );
