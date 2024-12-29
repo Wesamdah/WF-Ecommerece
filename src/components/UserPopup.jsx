@@ -1,10 +1,17 @@
+import { useEffect } from "react";
+import { NavLink } from "react-router-dom";
 // assets
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Logo from "../assets/imgs/iconLogo.png";
 // redux
 import { useSelector, useDispatch } from "react-redux";
-import { selectCurrentUser, logoutUser } from "../features/auth/authSlice";
-import { NavLink } from "react-router-dom";
+import {
+  selectCurrentUser,
+  logoutUser,
+  selectAuthStatus,
+  selectAuthError,
+} from "../features/auth/authSlice";
+import { showPopup } from "../features/popup/popupSlice";
 
 const SvgIcon = ({ theIcon }) => (
   <Icon icon={theIcon} className="mr-2 text-2xl hover:text-orange" />
@@ -13,20 +20,27 @@ const SvgIcon = ({ theIcon }) => (
 const UserPopup = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectCurrentUser);
+  const authStatus = useSelector(selectAuthStatus);
+  const authError = useSelector(selectAuthError);
 
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logoutUser());
+    if (authStatus === "succeeded" && !authError) {
+      dispatch(showPopup({ message: "Logout successful!", type: "success" }));
+    } else {
+      dispatch(showPopup({ message: "Logout Unsuccessful!", type: "error" }));
+    }
   };
 
   return (
-    <div className="absolute right-[-6px] top-9 z-10 flex w-36 flex-col items-center gap-2 rounded-xl border-2 border-solid border-orange bg-[#ffffff] p-5">
+    <div className="animate-fadeInUser absolute right-[-6px] top-9 z-10 flex w-36 flex-col items-center gap-2 rounded-xl border-2 border-solid border-orange bg-[#ffffff] p-5">
       <div className="flex flex-col items-center justify-center">
         <div className="flex items-center justify-center">
           <img src={Logo} alt="" className="mr-2 h-6 w-6" />{" "}
           {user ? user.name : "Guest"}
         </div>
-        <hr class="my-3 h-[2px] w-32 border-0 bg-[gray]" />
+        <hr className="my-3 h-[2px] w-32 border-0 bg-[gray]" />
       </div>
       <ul className="flex flex-col gap-4">
         {user && (

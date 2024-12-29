@@ -7,6 +7,7 @@ import {
   selectAuthError,
   selectAuthStatus,
 } from "../features/auth/authSlice";
+import { showPopup } from "../features/popup/popupSlice";
 // assets
 import Logo from "../assets/imgs/logo.png";
 import onlineShopping from "../assets/imgs/onlineShopping.png";
@@ -66,6 +67,11 @@ export default function SignUp() {
   useEffect(() => {
     if (authStatus === "succeeded" && !authError) {
       navigate("/");
+    }
+    if (authStatus === "failed" && authError) {
+      dispatch(
+        showPopup({ message: authError.msg || authError, type: "error" }),
+      );
     }
   }, [authStatus, authError, navigate]);
 
