@@ -1,8 +1,8 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { useState } from "react";
 // imgs
-import firstResult from "../../assets/imgs/quick11.jpg";
-import secondResult from "../../assets/imgs/quick22.jpg";
+import firstResult from "../../assets/imgs/quick1.jpg";
+import secondResult from "../../assets/imgs/quick2.jpg";
 import thirdResult from "../../assets/imgs/quick3.jpg";
 
 export default function ProductSearchBar({
@@ -79,6 +79,7 @@ export default function ProductSearchBar({
     setSearchResult(resultArray);
 
     setRecentSearches((prevSearches) => {
+      if (prevSearches.includes(valueOfInput)) return prevSearches;
       const updatedSearches = [...prevSearches, valueOfInput];
       return updatedSearches.slice(-4); // Keep only the last 6 searches
     });
@@ -191,7 +192,10 @@ export default function ProductSearchBar({
               <Icon
                 icon={"proicons:cancel"}
                 className="ml-auto cursor-pointer items-center text-xl font-semibold hover:text-orange"
-                onClick={() => setActiveSearch(false)}
+                onClick={() => {
+                  setActiveSearch(false);
+                  setValueOfInput("");
+                }}
               />
             </div>
 
