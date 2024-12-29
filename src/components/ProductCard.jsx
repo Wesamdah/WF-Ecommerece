@@ -6,8 +6,9 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { useSelector } from "react-redux";
 import { selectProductById } from "../features/products/productsSlice";
 
-export default function ProductCard({ productId, full, color }) {
-  const product = useSelector((state) => selectProductById(state, productId));
+export default function ProductCard({ productId, full, color, item }) {
+  const product =
+    useSelector((state) => selectProductById(state, productId)) || item;
 
   return (
     <>

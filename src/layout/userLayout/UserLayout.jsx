@@ -39,6 +39,7 @@ export default function UserLayout() {
       <Header setType={setType} type={type} />
       <ProductSearchBar
         allProducts={allProducts}
+        searchResult={searchResult}
         setSearchResult={setSearchResult}
         type={type}
       />
