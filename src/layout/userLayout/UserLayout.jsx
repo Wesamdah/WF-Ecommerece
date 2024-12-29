@@ -15,7 +15,7 @@ export default function UserLayout() {
   const allProducts = useSelector(selectAllProducts);
 
   const [type, setType] = useState("");
-  const [searchResult, setSearchResult] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
 
   useEffect(() => {
     if (allProducts.length === 0) {

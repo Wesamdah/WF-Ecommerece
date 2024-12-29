@@ -21,6 +21,14 @@ export default function ProductSearchBar({
 
   let searchTypeResults = "";
 
+  const popularSearches = [
+    "low sneakers",
+    "nike leather",
+    "causal footwear",
+    "adidas amba",
+    "yeezys",
+  ];
+
   switch (searchType) {
     case "sale":
       searchTypeResults = typeResults.filter((result) => result.atSale);
@@ -45,38 +53,42 @@ export default function ProductSearchBar({
     setSearchType(selectedType);
   };
 
+  const handleChange = (e) => {
+    setValueOfInput(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    let resutArray = "";
-    if (!e.target.value && !searchType) return setSearchResult(allProducts);
-    if (searchType === "brands") {
-      resutArray = typeResults.filter((result) =>
-        result.company.includes(e.target.value),
-      );
-    } else {
-      resutArray = searchTypeResults.filter(
-        (product) =>
-          product.name.includes(e.target.value) ||
-          product.description.includes(e.target.value),
-      );
+    if (!valueOfInput) {
+      if (!searchType) {
+        setSearchResult(allProducts);
+      }
+      return;
     }
-    setSearchResult(resutArray);
 
-    if (!valueOfInput.trim()) return;
+    const resultArray =
+      searchType === "brands"
+        ? typeResults.filter((result) => result.company.includes(valueOfInput))
+        : searchTypeResults.filter(
+            (product) =>
+              product.name.includes(valueOfInput) ||
+              product.description.includes(valueOfInput),
+          );
+
+    setSearchResult(resultArray);
 
     setRecentSearches((prevSearches) => {
-      const updatedSearches = [...prevSearches];
-      if (updatedSearches.length >= 6) {
-        updatedSearches.shift();
-      }
-      updatedSearches.push(valueOfInput);
-      return updatedSearches;
+      const updatedSearches = [...prevSearches, valueOfInput];
+      return updatedSearches.slice(-4); // Keep only the last 6 searches
     });
   };
 
-  const handleChange = (e) => {
-    setValueOfInput(e.target.value);
+  const deleteRecnetValue = (index) => {
+    setRecentSearches((prevSearches) => {
+      const updatedSearches = [...prevSearches];
+      return updatedSearches.filter((_, i) => i !== index);
+    });
   };
 
   return (
@@ -108,7 +120,8 @@ export default function ProductSearchBar({
             id="search"
             className="relative h-full w-full border-2 border-[#eee] p-3 pl-9 font-light caret-orange outline-none focus:border-2 focus:border-orange focus:font-normal"
             placeholder="Search products, articles, faq, ..."
-            onClick={() => setActiveSearch(!activeSeacrch)}
+            value={valueOfInput}
+            onClick={() => setActiveSearch(true)}
             onChange={handleChange}
             autoComplete="off"
             aria-label="Search"
@@ -129,24 +142,71 @@ export default function ProductSearchBar({
           id="drop_down"
           className={`absolute top-[60px] z-10 flex drop-shadow-[0_8px_16px_rgba(35,38,59,1)] ${activeSeacrch ? "h-96" : "h-0"} w-full overflow-hidden bg-[white] duration-300`}
         >
-          <div className="w-1/3 p-5">
-            <p className="mb-2 text-[#777]">Recent searches</p>
+          <div className="mb-1 w-1/3 p-5">
+            <div
+              id="recent_searches"
+              className={`${recentSearches.length > 0 ? "block" : "hidden"} h-fit max-h-[60%] w-full`}
+            >
+              <p className="mb-2 text-[#777]">Recent searches</p>
+              {recentSearches.map((item, index) => (
+                <div
+                  key={index}
+                  className="mb-5 flex items-center justify-between"
+                >
+                  <Icon
+                    icon={"mdi:reload"}
+                    className="w-[15%] cursor-pointer"
+                  />
+                  <p
+                    className="w-[70%] cursor-pointer self-start"
+                    onClick={() => setValueOfInput(item)}
+                  >
+                    {item}
+                  </p>
+                  <Icon
+                    icon={"proicons:cancel"}
+                    className="w-[15%] cursor-pointer"
+                    onClick={() => deleteRecnetValue(index)}
+                  />
+                </div>
+              ))}
+            </div>
+            <div id="Popular_searches" className="h-[40%] w-full">
+              <p className="mb-2 text-[#777]">Popular Searches</p>
+              <div className="flex flex-wrap items-center">
+                {popularSearches.map((item, index) => (
+                  <div
+                    key={index}
+                    className="m-1 h-8 w-fit cursor-pointer rounded-[4px] border border-[#D3D4D8] bg-[#F4F4F5] p-1 px-3 text-center font-medium"
+                  >
+                    <p onClick={() => setValueOfInput(item)}>{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
           <div className="w-2/3 p-5">
-            <p className="mb-2 text-[#777]">Quick access</p>
+            <div className="flex w-full">
+              <p className="mb-2 text-[#777]">Quick access</p>
+              <Icon
+                icon={"proicons:cancel"}
+                className="ml-auto cursor-pointer items-center text-xl font-semibold hover:text-orange"
+                onClick={() => setActiveSearch(false)}
+              />
+            </div>
+
             <div className="flex h-full w-full cursor-pointer gap-2">
               <div className="group relative h-[90%] w-[33%]">
                 <img
-                  className="h-full w-full object-cover"
                   src={firstResult}
                   alt="First Result"
+                  className="h-full w-full object-cover"
                 />
                 <div className="absolute bottom-0 flex h-0 w-full flex-col items-center justify-center overflow-hidden bg-orange text-[white] transition-all duration-300 group-hover:h-20">
                   <p>Spring Sale</p>
                   <p>Up to 60% off</p>
                 </div>
               </div>
-
               <div className="group relative h-[90%] w-[33%]">
                 <img
                   className="h-full w-full object-cover"

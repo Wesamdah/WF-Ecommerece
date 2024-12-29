@@ -37,7 +37,8 @@ export default function ProductCard({ productId, full, color }) {
                 .map((color, index) => (
                   <div
                     key={index}
-                    className={`h-5 w-5 rounded-full bg-[${color}] cursor-pointer border-2 border-[#ddd]`}
+                    style={{ backgroundColor: color }}
+                    className="h-5 w-5 cursor-pointer rounded-full border-2 border-[#ddd]"
                   ></div>
                 ))}
             </div>
