@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { Icon } from "@iconify/react/dist/iconify.js";
 // css
@@ -10,12 +10,13 @@ import bannerBg from "../../assets/imgs/bannerBackGround.png";
 import logo from "../../assets/imgs/IconLogo.png";
 // redux
 import { useSelector } from "react-redux";
-import { selectProductIds } from "./productsSlice";
+import { selectProductIds, getProductsStatus } from "./productsSlice";
 // components
 import ProductCard from "../../components/ProductCard";
 
 export default function ProductsList() {
   const orederProductsIds = useSelector(selectProductIds);
+  const productStatus = useSelector(getProductsStatus);
 
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -87,6 +88,25 @@ export default function ProductsList() {
     accessibility: true,
   };
 
+  const ProductSlider = ({ idName, array }) =>
+    productStatus === "loading" ? (
+      <div className="flex h-full animate-pulse items-center justify-center bg-[gray]">
+        <img src={logo} alt="" className="h-10 w-10" />
+      </div>
+    ) : productStatus === "succeeded" ? (
+      <div id={idName} className="mx-auto mt-5 w-[100%]">
+        <Slider {...sliderSettings}>
+          {array.map((productId, index) => (
+            <div key={index}>
+              <ProductCard productId={productId} />
+            </div>
+          ))}
+        </Slider>
+      </div>
+    ) : (
+      <p>error</p>
+    );
+
   return (
     <main>
       <section className="relative h-[420px] w-[calc(100vw_-_16px)]">
@@ -107,53 +127,45 @@ export default function ProductsList() {
         <p className="text-3xl font-semibold uppercase text-[black]">
           trending now
         </p>
-        <div id="trending_now" className="mx-auto mt-5 w-[100%]">
-          <Slider {...sliderSettings}>
-            {orederProductsIds.map((productId, index) => (
-              <div key={index}>
-                <ProductCard productId={productId} />
-              </div>
-            ))}
-          </Slider>
-        </div>
+        <ProductSlider idName="trending_now" array={orederProductsIds} />
       </section>
       <section className="h-[480px] w-full bg-[#F4F4F5] px-16 py-12">
         <p className="text-3xl font-semibold uppercase text-[black]">
           SPRING/SUMMER 2021
         </p>
-        <div
-          id="spring_summer"
-          className="mt-5 flex items-center justify-between"
-        >
-          {orederProductsIds
-            .filter((_, index) => index < 4)
-            .map((productId, index) => (
-              <div
-                key={index}
-                className={`${index === 0 || index === 3 ? "w-[33%]" : "w-[15%]"} ]`}
-              >
-                {index === 0 || index === 3 ? (
-                  <ProductCard productId={productId} full color />
-                ) : (
-                  <ProductCard productId={productId} full />
-                )}
-              </div>
-            ))}
-        </div>
+        {productStatus === "loading" ? (
+          <div className="flex h-full animate-pulse items-center justify-center bg-[gray]">
+            <img src={logo} alt="" className="h-10 w-10" />
+          </div>
+        ) : productStatus === "succeeded" ? (
+          <div
+            id="spring_summer"
+            className="mt-5 flex items-center justify-between"
+          >
+            {orederProductsIds
+              .filter((_, index) => index < 4)
+              .map((productId, index) => (
+                <div
+                  key={index}
+                  className={`${index === 0 || index === 3 ? "w-[33%]" : "w-[15%]"} ]`}
+                >
+                  {index === 0 || index === 3 ? (
+                    <ProductCard productId={productId} full color />
+                  ) : (
+                    <ProductCard productId={productId} full />
+                  )}
+                </div>
+              ))}
+          </div>
+        ) : (
+          <p>error</p>
+        )}
       </section>
       <section className="h-[480px] w-full px-16 py-12">
         <p className="text-3xl font-semibold uppercase text-[black]">
           RECOMMENDED FOR YOU
         </p>
-        <div id="recommended_for_you" className="mx-auto mt-5 w-[100%]">
-          <Slider {...sliderSettings}>
-            {orederProductsIds.map((productId, index) => (
-              <div key={index}>
-                <ProductCard productId={productId} />
-              </div>
-            ))}
-          </Slider>
-        </div>
+        <ProductSlider idName="recommended_for_you" array={orederProductsIds} />
       </section>
       <section className="relative h-[480px] w-full bg-[#F4F4F5] py-12">
         <div className="flex h-full w-[60%] flex-col gap-7 bg-[#706C63] p-12 text-[#ffffff]">
@@ -186,15 +198,7 @@ export default function ProductsList() {
         <p className="text-3xl font-semibold uppercase text-[black]">
           NEW IN... ACCESORIES
         </p>
-        <div id="accesories" className="mx-auto mt-5 w-[100%]">
-          <Slider {...sliderSettings}>
-            {orederProductsIds.map((productId, index) => (
-              <div key={index}>
-                <ProductCard productId={productId} />
-              </div>
-            ))}
-          </Slider>
-        </div>
+        <ProductSlider idName="accesories" array={orederProductsIds} />
       </section>
       <footer className="w-full bg-[#F4F4F5] px-16 py-12">
         <div className="flex h-32 w-full flex-row items-center justify-between">

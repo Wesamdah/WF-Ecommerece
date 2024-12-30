@@ -1,24 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 // assets
 import testImage from "../assets/imgs/onlineShopping.png";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import logo from "../assets/imgs/iconLogo.png";
 // redux
 import { useSelector } from "react-redux";
-import {
-  selectProductById,
-  getProductsStatus,
-} from "../features/products/productsSlice";
+import { selectProductById } from "../features/products/productsSlice";
 
 export default function ProductCard({ productId, full, color, item }) {
   const product =
     useSelector((state) => selectProductById(state, productId)) || item;
-  const productStatus = useSelector(getProductsStatus);
 
-  console.log(productStatus);
-
-  const content = (
-    <>
+  return (
+    <div className={`${full ? "w-full" : "w-48"} h-[300px]`}>
       <div className="relative bg-[red]">
         <img src={testImage} className="h-[192px]" />
         <Icon
@@ -58,18 +51,6 @@ export default function ProductCard({ productId, full, color, item }) {
         </p>
       </div>
       <p>({product.numOfReviews})</p>
-    </>
-  );
-
-  const loading = (
-    <div className="flex h-full animate-pulse items-center justify-center bg-[gray]">
-      <img src={logo} alt="" className="h-10 w-10" />
-    </div>
-  );
-
-  return (
-    <div className={`${full ? "w-full" : "w-48"} h-[300px]`}>
-      {productStatus === "succeeded" ? content : loading}
     </div>
   );
 }
