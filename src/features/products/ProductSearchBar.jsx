@@ -1,10 +1,9 @@
+import React, { useEffect, useState } from "react";
+// assets
 import { Icon } from "@iconify/react/dist/iconify.js";
-import React, { useState } from "react";
-// imgs
 import firstResult from "../../assets/imgs/quick1.jpg";
 import secondResult from "../../assets/imgs/quick2.jpg";
 import thirdResult from "../../assets/imgs/quick3.jpg";
-import testImage from "../../assets/imgs/onlineShopping.png";
 // components
 import ProductCard from "../../components/ProductCard";
 
@@ -17,7 +16,10 @@ export default function ProductSearchBar({
   const [activeSeacrch, setActiveSearch] = useState(false);
   const [searchType, setSearchType] = useState("");
   const [valueOfInput, setValueOfInput] = useState("");
-  const [recentSearches, setRecentSearches] = useState([]);
+  const [recentSearches, setRecentSearches] = useState(() => {
+    const storedSearches = localStorage.getItem("recentSearches");
+    return storedSearches ? JSON.parse(storedSearches) : [];
+  });
 
   const typeResults = type
     ? allProducts.filter((product) => product.category.includes(type))
@@ -96,25 +98,33 @@ export default function ProductSearchBar({
     });
   };
 
+  const SvgIcon = () => (
+    <Icon
+      icon={"proicons:cancel"}
+      className="ml-auto cursor-pointer items-center text-xl font-semibold hover:text-orange"
+      onClick={() => {
+        setActiveSearch(false);
+        setValueOfInput("");
+        setSearchResult([]);
+      }}
+    />
+  );
+
+  useEffect(() => {
+    localStorage.setItem("recentSearches", JSON.stringify(recentSearches));
+  }, [recentSearches]);
+
   const contetn =
     searchResult.length > 0 && valueOfInput ? (
       <div className="h-full w-full p-8">
         <div className="mb-4 flex items-center">
           <p className="text-[#91929D]">Products</p>
-          <Icon
-            icon={"proicons:cancel"}
-            className="ml-auto cursor-pointer items-center text-xl font-semibold hover:text-orange"
-            onClick={() => {
-              setActiveSearch(false);
-              setValueOfInput("");
-              setSearchResult([]);
-            }}
-          />
+          <SvgIcon />
         </div>
         <div className="flex h-[calc(100%_-_68px)] w-full items-start gap-2">
-          {searchResult.map(
-            (product, index) => index <= 4 && <ProductCard item={product} />,
-          )}
+          {searchResult.slice(0, 5).map((product, index) => (
+            <ProductCard key={index} item={product} />
+          ))}
         </div>
         <div
           className={`${searchResult.length > 4 ? "block" : "hidden"} h-8 w-fit cursor-pointer bg-primary-black px-4 py-1 text-sm font-light text-[white]`}
@@ -164,14 +174,7 @@ export default function ProductSearchBar({
         <div className="w-2/3 p-5">
           <div className="flex w-full">
             <p className="mb-2 text-[#777]">Quick access</p>
-            <Icon
-              icon={"proicons:cancel"}
-              className="ml-auto cursor-pointer items-center text-xl font-semibold hover:text-orange"
-              onClick={() => {
-                setActiveSearch(false);
-                setValueOfInput("");
-              }}
-            />
+            <SvgIcon />
           </div>
 
           <div className="flex h-full w-full cursor-pointer gap-2">
