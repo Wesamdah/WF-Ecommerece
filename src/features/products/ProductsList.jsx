@@ -84,6 +84,7 @@ export default function ProductsList() {
     ],
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
+    accessibility: true,
   };
 
   return (
@@ -135,7 +136,11 @@ export default function ProductsList() {
                     key={index}
                     className={`${index === 0 || index === 3 ? "w-[33%]" : "w-[15%]"} ]`}
                   >
-                    <ProductCard productId={productId} full />
+                    {index === 0 || index === 3 ? (
+                      <ProductCard productId={productId} full color />
+                    ) : (
+                      <ProductCard productId={productId} full />
+                    )}
                   </div>
                 ))}
             </div>

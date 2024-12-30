@@ -20,7 +20,7 @@ export default function UserLayout() {
   const user = useSelector(selectCurrentUser);
 
   const [type, setType] = useState("");
-  const [searchResult, setSearchResult] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
 
   useEffect(() => {
     if (allProducts.length === 0) {
@@ -39,6 +39,7 @@ export default function UserLayout() {
       <Header setType={setType} type={type} />
       <ProductSearchBar
         allProducts={allProducts}
+        searchResult={searchResult}
         setSearchResult={setSearchResult}
         type={type}
       />
