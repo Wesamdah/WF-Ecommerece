@@ -12,7 +12,6 @@ const popupSlice = createSlice({
         showPopup: (state, action) => {
             const { message, type } = action.payload;
             state.message = message;
-            state.type = null;
             state.type = type || "info";
         },
         hidePopup: (state) => {

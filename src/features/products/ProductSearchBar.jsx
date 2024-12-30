@@ -114,7 +114,7 @@ export default function ProductSearchBar({
     localStorage.setItem("recentSearches", JSON.stringify(recentSearches));
   }, [recentSearches]);
 
-  const contetn =
+  const content =
     searchResult.length > 0 && valueOfInput ? (
       <div className="h-full w-full p-8">
         <div className="mb-4 flex items-center">
@@ -278,7 +278,7 @@ export default function ProductSearchBar({
           id="drop_down"
           className={`absolute top-[60px] z-10 flex drop-shadow-[0_8px_16px_rgba(35,38,59,1)] ${activeSeacrch ? (searchResult.length > 0 && valueOfInput ? "h-[456px]" : "h-96") : "h-0"} w-full overflow-hidden bg-[white] duration-300`}
         >
-          {contetn}
+          {content}
         </div>
       </div>
     </section>

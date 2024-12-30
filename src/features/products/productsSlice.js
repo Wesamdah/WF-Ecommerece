@@ -20,14 +20,14 @@ const initialState = productsAdapter.getInitialState({
 
 export const fetchAllProducts = createAsyncThunk(
   "product/fetchAllProducts",
-  async () => {
+  async (_, { rejectWithValue }) => {
     try {
       const response = await axiosClient.get("/products");
       console.log("API Response :", response.data);
       return response.data.products;
     } catch (err) {
       console.error("API Error:", err.message);
-      return err.message;
+      return rejectWithValue(err.response?.message);
     }
   },
 );
@@ -47,7 +47,7 @@ const productSlice = createSlice({
         productsAdapter.setMany(state, action.payload); // Ensure payload matches expected structure
       })
       .addCase(fetchAllProducts.rejected, (state, action) => {
-        state.status = "idle";
+        state.status = "failed";
         state.error = action.payload;
       });
   },
