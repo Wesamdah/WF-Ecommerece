@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Icon } from "@iconify/react/dist/iconify.js";
-// imgs
+// assetes
 import Logo from "../assets/imgs/iconLogo.png";
 // components
 import UserPopup from "./UserPopup";
