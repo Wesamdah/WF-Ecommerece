@@ -45,7 +45,7 @@ export default function ProductsList() {
           SPRING/SUMMER 2021
         </p>
         {productStatus === "loading" ? (
-          <div className="flex h-full animate-pulse items-center justify-center bg-[gray]">
+          <div className="flex h-full animate-pulse items-center justify-center bg-[#eee5e5]">
             <img src={logo} alt="" className="h-10 w-10" />
           </div>
         ) : productStatus === "succeeded" ? (
