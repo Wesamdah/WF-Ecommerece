@@ -44,11 +44,11 @@ export default function ProductsList() {
         <p className="text-3xl font-semibold uppercase text-[black]">
           SPRING/SUMMER 2021
         </p>
-        {productStatus === "loading" ? (
+        {productStatus === "loading" || productStatus === "failed" ? (
           <div className="flex h-full animate-pulse items-center justify-center bg-[gray]">
             <img src={logo} alt="" className="h-10 w-10" />
           </div>
-        ) : productStatus === "succeeded" ? (
+        ) : (
           <div
             id="spring_summer"
             className="mt-5 flex items-center justify-between"
@@ -68,8 +68,6 @@ export default function ProductsList() {
                 </div>
               ))}
           </div>
-        ) : (
-          <p>error</p>
         )}
       </section>
       <section className="h-[480px] w-full px-16 py-12">
