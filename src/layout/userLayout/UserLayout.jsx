@@ -18,6 +18,7 @@ export default function UserLayout() {
   const dispatch = useDispatch();
   const allProducts = useSelector(selectAllProducts);
   const user = useSelector(selectCurrentUser);
+  console.log(user);
 
   const [type, setType] = useState("");
   const [searchResult, setSearchResult] = useState([]);
@@ -32,7 +33,7 @@ export default function UserLayout() {
     if (!user) {
       dispatch(getCurrentUser());
     }
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className="h-screen w-screen overflow-x-hidden overflow-y-scroll bg-[white]">

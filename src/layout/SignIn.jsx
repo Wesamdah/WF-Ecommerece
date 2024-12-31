@@ -4,8 +4,10 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loginUser,
+  getCurrentUser,
   selectAuthError,
   selectAuthStatus,
+  selectCurrentUser,
 } from "../features/auth/authSlice";
 import { showPopup } from "../features/popup/popupSlice";
 // assets
@@ -25,6 +27,7 @@ export default function SignIn() {
   const dispatch = useDispatch();
   const authStatus = useSelector(selectAuthStatus);
   const authError = useSelector(selectAuthError);
+  const currentUser = useSelector(selectCurrentUser);
 
   const [data, setData] = useState({
     email: "",
@@ -46,6 +49,14 @@ export default function SignIn() {
       );
     }
   }, [authStatus, authError, navigate, from]);
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate(from, { replace: true });
+    } else {
+      dispatch(getCurrentUser());
+    }
+  }, []);
 
   const canSubmit = [...Object.values(data)].every(Boolean);
 
