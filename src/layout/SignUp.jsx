@@ -83,38 +83,33 @@ export default function SignUp() {
 
   return (
     <main className="relative flex h-screen w-screen flex-col overflow-hidden bg-orange md:flex-row md:justify-between">
-      <section className="m-4 flex h-fit w-full flex-col overflow-hidden text-center md:m-10 md:mx-auto md:h-full md:w-[40%] md:justify-center lg:w-[30%] lg:justify-normal lg:text-start">
-        <div className="mb-4 flex flex-row items-center justify-center md:mb-6 md:justify-start lg:flex-col">
-          <img src={Logo} className="h-20 w-20 md:h-40 md:w-40" alt="Logo" />
-          <p className="text-4xl font-bold text-[#ffffff] sm:hidden md:text-xl">
-            WF Store
-          </p>
-          <p className="hidden text-4xl font-bold text-[#ffffff] sm:text-lg md:block md:text-xl lg:text-2xl">
+      <section className="m-2 flex h-fit w-full flex-col justify-center overflow-hidden text-center sm:m-4 md:m-10 md:mx-auto md:h-full md:w-[40%] md:justify-normal md:pl-2 md:font-bold lg:w-[30%] lg:text-start lg:text-xl">
+        <div className="mb-2 flex flex-row items-center justify-center sm:mb-4 md:mb-6 md:justify-start">
+          <img
+            src={Logo}
+            className="h-16 w-16 sm:h-20 sm:w-20 md:h-40 md:w-40"
+            alt="Logo"
+          />
+          <p className="text-2xl font-bold text-[#ffffff] sm:text-4xl md:text-xl lg:text-2xl">
             WF Store
           </p>
         </div>
 
-        <div className="hidden md:block">
-          <p className="text-2xl font-bold text-[#ffffff] sm:hidden md:text-xl">
+        <div className="sm:block">
+          <p className="mb-4 hidden text-xl font-bold text-[#ffffff] sm:text-2xl md:block md:text-3xl xl:text-4xl">
             E-Commerce Store
           </p>
-
-          <p className="text-center text-sm text-[#ffffff] sm:hidden md:block md:text-left md:text-lg">
-            Discover the best deals and shop your favorites
-            <br />
-            all in one place!
+          <p className="text-sm text-[#ffffff] sm:text-lg md:text-xl lg:text-xl">
+            Discover the best deals and shop your favorites all in one place!
           </p>
         </div>
       </section>
 
-      <section className="boder flex h-[calc(100%_-_80px)] w-full animate-loadForm flex-col items-center justify-center overflow-hidden rounded-t-[30px] bg-[white] sm:p-3 md:h-full md:w-[60%] md:items-start md:rounded-l-[30px] md:rounded-tr-none md:p-6 lg:h-full lg:w-[70%]">
-        <p className="px-4 text-xl font-semibold text-[#525252] md:px-8 md:text-3xl">
+      <section className="flex h-[calc(100%_-_124px)] w-full flex-col items-center justify-center overflow-hidden rounded-t-[30px] bg-[white] p-4 sm:p-6 md:h-full md:w-[60%] md:animate-loadForm md:items-start md:rounded-l-[30px] md:rounded-tr-none md:p-8 lg:h-full">
+        <p className="mb-4 text-xl font-semibold text-[#525252] sm:text-2xl md:text-3xl">
           Create Account
         </p>
-        <form
-          onSubmit={handleSubmit}
-          className="flex w-full flex-col p-4 md:p-8"
-        >
+        <form onSubmit={handleSubmit} className="flex w-full flex-col">
           <Inputs
             name="name"
             type="text"
@@ -149,7 +144,7 @@ export default function SignUp() {
             setData={setData}
             valid={validPwd}
             validateInput={validateInput}
-            regexMessage="8 to 24 characters. Must include uppercase, lowercase, a number, and a special character ."
+            regexMessage="8 to 24 characters. Must include uppercase, lowercase, a number, and a special character."
           />
           <Inputs
             name="confirmPassword"
@@ -161,7 +156,6 @@ export default function SignUp() {
             validateInput={validateInput}
             regexMessage="Must match the first password input field."
           />
-
           <button
             type="submit"
             disabled={!canSubmit}
@@ -174,9 +168,7 @@ export default function SignUp() {
             )}
           </button>
         </form>
-        {authStatus === "loading" && <p>Logging in...</p>}
-        {authStatus === "failed" && <p>Error: {authError}</p>}
-        <p className="px-4 text-center text-sm text-[#A1A1A1] md:px-8 md:text-left">
+        <p className="mt-2 text-center text-sm text-[#A1A1A1] sm:mt-4 md:text-left">
           Already have an account?{" "}
           <Link to={"/signin"} className="font-bold text-orange">
             Login
@@ -184,9 +176,11 @@ export default function SignUp() {
         </p>
       </section>
 
+      {/* Decorative Image */}
       <img
         src={onlineShopping}
-        className="absolute bottom-0 left-[10%] hidden h-[400px] w-[400px] animate-loadImage delay-500 xl:block"
+        className="absolute bottom-0 left-0 hidden h-[200px] w-[200px] sm:h-[250px] sm:w-[250px] md:h-[300px] md:w-[300px] lg:h-[400px] lg:w-[400px] xl:left-[10%]"
+        alt="Shopping Illustration"
       />
     </main>
   );

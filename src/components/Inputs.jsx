@@ -26,7 +26,7 @@ export default function Inputs({
     "mt-4 flex items-center justify-start text-xs text-[#e63946]";
 
   return (
-    <div className="mb-11 w-[100%]">
+    <div className="mb-6 w-[100%] md:mb-11">
       <div className="relative w-[100%]">
         <input
           type={inputType}
@@ -38,7 +38,7 @@ export default function Inputs({
           required
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
-          className={`${inputClass} focus:outline-none ${value ? (valid ? "focus:border-none focus:outline-[green]" : "focus:border-none focus:outline-[red]") : "outline-none"}`}
+          className={`${inputClass} focus:outline-none ${valid && value ? (valid ? "focus:border-none focus:outline-[green]" : "focus:border-none focus:outline-[red]") : "outline-none"}`}
         />
         {type === "password" && (
           <Icon
