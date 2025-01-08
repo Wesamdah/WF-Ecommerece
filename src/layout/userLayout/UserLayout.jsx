@@ -5,20 +5,21 @@ import {
   fetchAllProducts,
   selectAllProducts,
 } from "../../features/products/productsSlice";
-import { useDispatch, useSelector } from "react-redux";
-// component
-import Header from "../../components/Header";
-import ProductSearchBar from "../../features/products/ProductSearchBar";
 import {
   getCurrentUser,
   selectCurrentUser,
 } from "../../features/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+// component
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import { useDropMenu } from "../../provider/DropMenuProvider";
 
 export default function UserLayout() {
   const dispatch = useDispatch();
   const allProducts = useSelector(selectAllProducts);
   const user = useSelector(selectCurrentUser);
-  console.log(user);
+  const { isSearchActive } = useDropMenu();
 
   const [type, setType] = useState("");
   const [searchResult, setSearchResult] = useState([]);
@@ -36,15 +37,18 @@ export default function UserLayout() {
   }, []);
 
   return (
-    <div className="h-screen w-screen overflow-x-hidden overflow-y-scroll bg-[white]">
-      <Header setType={setType} type={type} />
-      <ProductSearchBar
+    <div
+      className={`${isSearchActive ? "overflow-y-hidden" : "overflow-y-scroll"} h-screen w-screen overflow-x-hidden bg-[white] md:overflow-y-scroll`}
+    >
+      <Header
+        setType={setType}
+        type={type}
         allProducts={allProducts}
         searchResult={searchResult}
         setSearchResult={setSearchResult}
-        type={type}
       />
       <Outlet />
+      <Footer />
     </div>
   );
 }

@@ -33,7 +33,7 @@ const UserPopup = () => {
   };
 
   return (
-    <div className="absolute right-[-6px] top-9 z-50 flex w-36 animate-fadeInUser flex-col items-center gap-2 rounded-xl border-2 border-solid border-orange bg-[#ffffff] p-5">
+    <div className="absolute right-[60px] top-[70px] z-50 flex w-36 animate-fadeInUser flex-col items-center gap-2 rounded-xl border-2 border-solid border-orange bg-[#ffffff] p-5">
       <div className="flex flex-col items-center justify-center">
         <div className="flex items-center justify-center">
           <img src={Logo} alt="" className="mr-2 h-6 w-6" />

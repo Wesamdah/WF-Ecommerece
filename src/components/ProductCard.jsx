@@ -11,7 +11,7 @@ export default function ProductCard({ productId, full, color, item }) {
     useSelector((state) => selectProductById(state, productId)) || item;
 
   return (
-    <div className={`${full ? "w-full" : "w-48"} h-[300px]`}>
+    <div className={`${full ? "w-full" : "w-[48%] md:w-48"} h-[300px]`}>
       <div className="relative bg-[red]">
         <img src={testImage} className="h-[192px]" />
         <Icon
