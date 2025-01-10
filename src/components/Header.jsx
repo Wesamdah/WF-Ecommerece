@@ -84,7 +84,7 @@ export default function Header({
               alt="logo!"
               className="h-10 w-12 cursor-pointer md:h-12 md:w-16"
             />
-            <div className="ml-4 bg-gradient-to-r from-[#d62828] to-[#fcbf49] bg-clip-text text-lg font-bold text-[transparent] md:text-xl">
+            <div className="ml-4 bg-gradient-to-r from-[#d62828] to-[#fcbf49] bg-clip-text text-lg font-bold text-[transparent] md:text-lg lg:text-xl">
               <span>Wessam & Firas</span>
               <br />
               <span className="block md:inline"> FASHION</span>
@@ -92,7 +92,7 @@ export default function Header({
           </NavLink>
         </div>
 
-        <div className="md: flex w-full items-center justify-center space-x-2 text-sm md:w-1/3 md:text-base lg:space-x-4">
+        <div className="w-full items-center justify-center space-x-2 text-sm md:flex md:w-1/3 md:text-base lg:space-x-4">
           <p className="flex cursor-pointer items-center gap-1 hover:text-orange">
             <SvgIcon theIcon="material-symbols:headset-mic-outline-sharp" />
             Support
