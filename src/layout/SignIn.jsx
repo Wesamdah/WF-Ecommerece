@@ -4,8 +4,10 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loginUser,
+  getCurrentUser,
   selectAuthError,
   selectAuthStatus,
+  selectCurrentUser,
 } from "../features/auth/authSlice";
 import { showPopup } from "../features/popup/popupSlice";
 // assets
@@ -25,6 +27,7 @@ export default function SignIn() {
   const dispatch = useDispatch();
   const authStatus = useSelector(selectAuthStatus);
   const authError = useSelector(selectAuthError);
+  const currentUser = useSelector(selectCurrentUser);
 
   const [data, setData] = useState({
     email: "",
@@ -58,15 +61,28 @@ export default function SignIn() {
     }
   }, [authStatus, authError, navigate, from]);
 
+  useEffect(() => {
+    if (currentUser) {
+      navigate(from, { replace: true });
+    } else {
+      dispatch(getCurrentUser());
+    }
+  }, []);
+
   const canSubmit = [...Object.values(data)].every(Boolean);
 
   return (
-    <main className="relative flex h-screen w-screen overflow-hidden bg-orange md:justify-between">
-      <section className="boder flex h-full w-[60%] animate-loadForm flex-col items-start justify-center rounded-r-[30px] bg-[white] p-20">
-        <p className="px-8 text-3xl font-semibold text-[#525252]">Login </p>
-        <form onSubmit={handleSubmit} className="flex w-[100%] flex-col p-8">
+    <main className="relative flex h-screen w-screen flex-col-reverse overflow-hidden bg-orange md:flex-row md:justify-between">
+      <section className="flex h-[calc(100%_-_124px)] w-full flex-col items-center justify-center overflow-hidden rounded-t-[30px] bg-[white] p-4 sm:p-6 md:h-full md:w-[60%] md:animate-loadForm md:items-start md:rounded-r-[30px] md:rounded-tl-none md:p-8 lg:h-full">
+        <p className="mb-4 text-xl font-semibold text-[#525252] sm:text-2xl md:text-3xl">
+          Login{" "}
+        </p>
+        <form
+          onSubmit={handleSubmit}
+          className="flex w-full flex-col p-4 md:p-8"
+        >
           <Inputs
-            name={"email"}
+            name="email"
             type="email"
             placeholder="Enter Your Email"
             value={data.email}
@@ -99,26 +115,31 @@ export default function SignIn() {
           </Link>
         </p>
       </section>
-      <section className="m-10 flex h-full w-[30%] flex-col overflow-hidden">
-        <div className="mb-6 flex items-center">
-          <img src={Logo} className="h-40 w-40" />
-          <p className="ml-3 mt-10 text-6xl font-bold text-[#ffffff]">
+
+      <section className="m-2 flex h-fit w-full flex-col justify-center overflow-hidden text-center sm:m-4 md:m-10 md:mx-auto md:h-full md:w-[40%] md:justify-normal md:pl-2 md:font-bold lg:w-[30%] lg:text-start lg:text-xl">
+        <div className="mb-2 flex flex-row items-center justify-center sm:mb-4 md:mb-6 md:justify-start">
+          <img
+            src={Logo}
+            className="h-16 w-16 sm:h-20 sm:w-20 md:h-40 md:w-40"
+            alt="Logo"
+          />
+          <p className="text-2xl font-bold text-[#ffffff] sm:text-4xl md:text-xl lg:text-2xl">
             WF Store
           </p>
         </div>
-        <p className="mb-8 text-4xl font-bold text-[#ffffff]">
-          {" "}
-          E-Commerce Store
-        </p>
-        <p className="text-lg text-[#ffffff]">
-          Discover the best deals and shop your favorites,
-          <br />
-          all in one place!
-        </p>
+
+        <div className="sm:block">
+          <p className="mb-4 hidden text-xl font-bold text-[#ffffff] sm:text-2xl md:block md:text-3xl xl:text-4xl">
+            E-Commerce Store
+          </p>
+          <p className="text-sm text-[#ffffff] sm:text-lg md:text-xl lg:text-xl">
+            Discover the best deals and shop your favorites all in one place!
+          </p>
+        </div>
       </section>
       <img
         src={image2}
-        className="absolute bottom-0 right-[10%] h-[400px] w-[400px] animate-loadImage delay-500"
+        className="absolute -bottom-6 right-[0%] hidden h-[300px] w-[300px] animate-loadImage delay-500 md:block lg:h-[400px] lg:w-[400px] xl:right-[10%]"
       />
     </main>
   );

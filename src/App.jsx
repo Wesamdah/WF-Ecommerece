@@ -6,13 +6,21 @@ import UserLayout from "./layout/userLayout/UserLayout";
 // pages
 import ProductsList from "./features/products/ProductsList";
 import InfoPopup from "./features/popup/InfoPopup";
+import DropMenuProvider from "./provider/DropMenuProvider";
 
 function App() {
   return (
     <>
       <InfoPopup />
       <Routes>
-        <Route path="/*" element={<UserLayout />}>
+        <Route
+          path="/*"
+          element={
+            <DropMenuProvider>
+              <UserLayout />
+            </DropMenuProvider>
+          }
+        >
           <Route index element={<ProductsList />} />
         </Route>
 

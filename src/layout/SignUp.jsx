@@ -34,11 +34,9 @@ export default function SignUp() {
     confirmPassword: "",
   });
 
-  const [isDelayed, setIsDelayed] = useState(false);
-
-  const [validName, setValidName] = useState(false);
-  const [validPwd, setValidPwd] = useState(false);
-  const [validMatch, setValidMatch] = useState(false);
+  const [validName, setValidName] = useState(true);
+  const [validPwd, setValidPwd] = useState(true);
+  const [validMatch, setValidMatch] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,21 +48,25 @@ export default function SignUp() {
     }
     const formDataToSend = new FormData();
     Object.keys(data).forEach((key) => formDataToSend.append(key, data[key]));
-    // dispatch(registerUser({ name: data.name,lastName:data.lastName,email:data. }));
     dispatch(registerUser(formDataToSend));
   };
 
-  useEffect(() => {
-    const result = userRegex.test(data.name);
-    setValidName(result);
-  }, [data.name]);
-
-  useEffect(() => {
-    const result = PasswordRegex.test(data.password);
-    setValidPwd(result);
-    const match = data.password === data.confirmPassword;
-    setValidMatch(match);
-  }, [data.password, data.confirmPassword]);
+  const validateInput = (e) => {
+    const { name, value } = e.target;
+    switch (name) {
+      case "name":
+        setValidName(userRegex.test(value));
+        break;
+      case "password":
+        setValidPwd(PasswordRegex.test(value));
+        break;
+      case "confirmPassword":
+        setValidMatch(value === data.password);
+        break;
+      default:
+        break;
+    }
+  };
 
   useEffect(() => {
     if (authStatus === "succeeded" && !authError) {
@@ -89,40 +91,46 @@ export default function SignUp() {
   const canSubmit = [...Object.values(data)].every(Boolean);
 
   return (
-    <main className="relative flex h-screen w-screen overflow-hidden bg-orange md:justify-between">
-      <section className="m-10 flex h-full w-[30%] flex-col overflow-hidden">
-        <div className="mb-6 flex items-center">
-          <img src={Logo} className="h-40 w-40" />
-          <p className="ml-3 mt-10 text-6xl font-bold text-[#ffffff]">
+    <main className="relative flex h-screen w-screen flex-col overflow-hidden bg-orange md:flex-row md:justify-between">
+      <section className="m-2 flex h-fit w-full flex-col justify-center overflow-hidden text-center sm:m-4 md:m-10 md:mx-auto md:h-full md:w-[40%] md:justify-normal md:pl-2 md:font-bold lg:w-[30%] lg:text-start lg:text-xl">
+        <div className="mb-2 flex flex-row items-center justify-center sm:mb-4 md:mb-6 md:justify-start">
+          <img
+            src={Logo}
+            className="h-16 w-16 sm:h-20 sm:w-20 md:h-40 md:w-40"
+            alt="Logo"
+          />
+          <p className="text-2xl font-bold text-[#ffffff] sm:text-4xl md:text-xl lg:text-2xl">
             WF Store
           </p>
         </div>
-        <p className="mb-8 text-4xl font-bold text-[#ffffff]">
-          {" "}
-          E-Commerce Store
-        </p>
-        <p className="text-lg text-[#ffffff]">
-          Discover the best deals and shop your favorites,
-          <br />
-          all in one place!
-        </p>
+
+        <div className="sm:block">
+          <p className="mb-4 hidden text-xl font-bold text-[#ffffff] sm:text-2xl md:block md:text-3xl xl:text-4xl">
+            E-Commerce Store
+          </p>
+          <p className="text-sm text-[#ffffff] sm:text-lg md:text-xl lg:text-xl">
+            Discover the best deals and shop your favorites all in one place!
+          </p>
+        </div>
       </section>
-      <section className="boder flex h-full w-[60%] animate-loadForm flex-col items-start justify-center rounded-l-[30px] bg-[white] p-20">
-        <p className="px-8 text-3xl font-semibold text-[#525252]">
-          Create Account{" "}
+
+      <section className="flex h-[calc(100%_-_124px)] w-full flex-col items-center justify-center overflow-hidden rounded-t-[30px] bg-[white] p-4 sm:p-6 md:h-full md:w-[60%] md:animate-loadForm md:items-start md:rounded-l-[30px] md:rounded-tr-none md:p-8 lg:h-full">
+        <p className="mb-4 text-xl font-semibold text-[#525252] sm:text-2xl md:text-3xl">
+          Create Account
         </p>
-        <form onSubmit={handleSubmit} className="flex w-[100%] flex-col p-8">
+        <form onSubmit={handleSubmit} className="flex w-full flex-col">
           <Inputs
-            name={"name"}
+            name="name"
             type="text"
             placeholder="Enter Your First Name"
             value={data.name}
             setData={setData}
             valid={validName}
-            Regex
+            validateInput={validateInput}
+            regexMessage="4 to 24 characters. Must start with a letter. Only letters, numbers, hyphens, and underscores are allowed."
           />
           <Inputs
-            name={"lastName"}
+            name="lastName"
             type="text"
             placeholder="Enter Your Last Name"
             value={data.lastName}
@@ -130,35 +138,37 @@ export default function SignUp() {
             valid={true}
           />
           <Inputs
-            name={"email"}
+            name="email"
             type="email"
             placeholder="Enter Your Email"
             value={data.email}
             setData={setData}
+            valid={true}
           />
           <Inputs
-            name={"password"}
+            name="password"
             type="password"
             placeholder="Enter Password"
             value={data.password}
             setData={setData}
             valid={validPwd}
-            Regex
+            validateInput={validateInput}
+            regexMessage="8 to 24 characters. Must include uppercase, lowercase, a number, and a special character."
           />
           <Inputs
-            name={"confirmPassword"}
+            name="confirmPassword"
             type="password"
             placeholder="Confirm Password"
             value={data.confirmPassword}
             setData={setData}
             valid={validMatch}
-            Regex
+            validateInput={validateInput}
+            regexMessage="Must match the first password input field."
           />
-
           <button
             type="submit"
             disabled={!canSubmit}
-            className="flex h-14 items-center justify-center rounded-lg bg-orange text-xl font-semibold text-[white]"
+            className="flex h-12 items-center justify-center rounded-lg bg-orange text-lg font-semibold text-[white] md:h-14 md:text-xl"
           >
             {authStatus === "loading" || isDelayed ? (
               <SvgIcon theIcon="svg-spinners:180-ring-with-bg" />
@@ -167,18 +177,19 @@ export default function SignUp() {
             )}
           </button>
         </form>
-        {authStatus === "loading" && <p>Logging in...</p>}
-        {authStatus === "failed" && <p>Error: {authError}</p>}
-        <p className="px-8 text-sm text-[#A1A1A1]">
+        <p className="mt-2 text-center text-sm text-[#A1A1A1] sm:mt-4 md:text-left">
           Already have an account?{" "}
           <Link to={"/signin"} className="font-bold text-orange">
             Login
           </Link>
         </p>
       </section>
+
+      {/* Decorative Image */}
       <img
         src={onlineShopping}
-        className="absolute bottom-0 left-[10%] h-[400px] w-[400px] animate-loadImage delay-500"
+        className="absolute bottom-0 left-0 hidden h-[200px] w-[200px] sm:h-[250px] sm:w-[250px] md:h-[300px] md:w-[300px] lg:h-[400px] lg:w-[400px] xl:left-[10%]"
+        alt="Shopping Illustration"
       />
     </main>
   );

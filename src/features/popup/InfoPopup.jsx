@@ -44,7 +44,7 @@ const InfoPopup = () => {
 
   return (
     <div
-      className={`fixed bottom-5 right-[34rem] z-[1000] flex scale-100 transform-gpu items-center space-x-3 rounded-lg bg-[#ffffff] p-1 text-[#000] shadow-lg transition-transform ${
+      className={`fixed bottom-5 right-[20%] z-[1000] flex scale-100 transform-gpu items-center space-x-3 rounded-lg bg-[#ffffff] p-1 text-[#000] shadow-lg transition-transform lg:right-1/2 ${
         isFadingOut ? "animate-fadeOut" : "animate-fadeIn"
       }`}
     >
