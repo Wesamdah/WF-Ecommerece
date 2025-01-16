@@ -16,7 +16,7 @@ const SvgIcon = ({ theIcon }) => (
   <Icon icon={theIcon} className="mr-2 text-2xl hover:text-orange" />
 );
 
-const UserPopup = () => {
+const UserPopup = ({ userPopupRef, isUserPopupOpen }) => {
   const dispatch = useDispatch();
   const user = useSelector(selectCurrentUser);
   const authStatus = useSelector(selectAuthStatus);
@@ -33,40 +33,48 @@ const UserPopup = () => {
   };
 
   return (
-    <div className="absolute right-[60px] top-[70px] z-[100] flex w-36 animate-fadeInUser flex-col items-center gap-2 rounded-xl border-2 border-solid border-orange bg-[#ffffff] p-5">
+    <div
+      className="absolute right-[-35px] top-[50px] z-[999] flex h-fit w-36 animate-fadeInUser flex-col items-center gap-2 rounded-xl border-2 border-solid border-orange bg-[#ffffff] p-5 md:right-[-50px] md:top-[40px]"
+      ref={userPopupRef}
+      aria-hidden={!isUserPopupOpen}
+      tabIndex={!isUserPopupOpen ? -1 : 0}
+    >
       <div className="flex flex-col items-center justify-center">
-        <div className="flex items-center justify-center">
+        <div className="flex h-full items-center justify-center">
           <img src={Logo} alt="" className="mr-2 h-6 w-6" />
-          {user ? user.name : "Guest"}
+          <p>{user ? user.name : "Guest"}</p>
         </div>
         <hr className="my-3 h-[2px] w-32 border-0 bg-[gray]" />
-      </div>
-      <ul className="flex flex-col gap-4">
-        {user && (
-          <li className="flex cursor-pointer flex-row items-center hover:text-orange">
-            <SvgIcon theIcon="iconamoon:profile" />
-            Profile
-          </li>
-        )}
-        {user ? (
-          <li
-            className="flex cursor-pointer flex-row items-center hover:text-orange"
-            onClick={handleLogout}
-          >
-            {" "}
-            <SvgIcon theIcon="si:sign-out-duotone" />
-            Sign out
-          </li>
-        ) : (
-          <NavLink to="/signin">
-            <li className="flex cursor-pointer flex-row items-center hover:text-orange">
-              {" "}
+        <ul className="flex flex-col gap-4">
+          {user && (
+            <li className="flex cursor-pointer items-center hover:text-orange">
+              <SvgIcon theIcon="iconamoon:profile" />
+              Profile
+            </li>
+          )}
+          {user ? (
+            <li
+              className="flex cursor-pointer items-center hover:text-orange"
+              onClick={handleLogout}
+            >
+              <SvgIcon theIcon="si:sign-out-duotone" />
+              Sign out
+            </li>
+          ) : (
+            <NavLink
+              to="/signin"
+              // onClick={(e) => {
+              //   e.stopPropagation(); // Prevents the popup from closing
+              //   setIsUserPopupOpen(false); // Explicitly closes the popup after navigation
+              // }}
+              className="flex items-center hover:text-orange"
+            >
               <SvgIcon theIcon="solar:login-2-linear" />
               Login
-            </li>
-          </NavLink>
-        )}
-      </ul>
+            </NavLink>
+          )}
+        </ul>
+      </div>
     </div>
   );
 };
