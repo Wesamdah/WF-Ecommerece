@@ -34,6 +34,8 @@ export default function SignIn() {
     password: "",
   });
 
+  const [isDelayed, setIsDelayed] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser({ email: data.email, password: data.password }));
@@ -41,12 +43,21 @@ export default function SignIn() {
 
   useEffect(() => {
     if (authStatus === "succeeded" && !authError) {
-      navigate(from, { replace: true });
+      setIsDelayed(true);
+      setTimeout(() => {
+        setIsDelayed(false);
+        navigate(from, { replace: true });
+      }, 3000);
     }
+
     if (authStatus === "failed" && authError) {
-      dispatch(
-        showPopup({ message: authError.msg || authError, type: "error" }),
-      );
+      setIsDelayed(true);
+      setTimeout(() => {
+        setIsDelayed(false);
+        dispatch(
+          showPopup({ message: authError.msg || authError, type: "error" }),
+        );
+      }, 3000);
     }
   }, [authStatus, authError, navigate, from]);
 
@@ -89,7 +100,7 @@ export default function SignIn() {
             disabled={!canSubmit}
             className="flex h-14 items-center justify-center rounded-lg bg-orange text-xl font-semibold text-[white]"
           >
-            {authStatus === "loading" ? (
+            {authStatus === "loading" || isDelayed ? (
               <SvgIcon theIcon="svg-spinners:180-ring-with-bg" />
             ) : (
               <p>Login</p>

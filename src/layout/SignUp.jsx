@@ -70,14 +70,23 @@ export default function SignUp() {
 
   useEffect(() => {
     if (authStatus === "succeeded" && !authError) {
-      navigate("/");
+      setIsDelayed(true);
+      setTimeout(() => {
+        setIsDelayed(false);
+        navigate("/");
+      }, 3000);
     }
+
     if (authStatus === "failed" && authError) {
-      dispatch(
-        showPopup({ message: authError.msg || authError, type: "error" }),
-      );
+      setIsDelayed(true);
+      setTimeout(() => {
+        setIsDelayed(false);
+        dispatch(
+          showPopup({ message: authError.msg || authError, type: "error" }),
+        );
+      }, 3000);
     }
-  }, [authStatus, authError, navigate]);
+  }, [authStatus, authError, navigate, from]);
 
   const canSubmit = [...Object.values(data)].every(Boolean);
 
@@ -161,7 +170,7 @@ export default function SignUp() {
             disabled={!canSubmit}
             className="flex h-12 items-center justify-center rounded-lg bg-orange text-lg font-semibold text-[white] md:h-14 md:text-xl"
           >
-            {authStatus === "loading" ? (
+            {authStatus === "loading" || isDelayed ? (
               <SvgIcon theIcon="svg-spinners:180-ring-with-bg" />
             ) : (
               <p>Create Account</p>
