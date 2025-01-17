@@ -16,7 +16,7 @@ const SvgIcon = ({ theIcon }) => (
   <Icon icon={theIcon} className="mr-2 text-2xl hover:text-orange" />
 );
 
-const UserPopup = ({ isUserPopupOpen }) => {
+const UserPopup = ({ isUserPopupOpen, userPopupRef }) => {
   const dispatch = useDispatch();
   const user = useSelector(selectCurrentUser);
   const authStatus = useSelector(selectAuthStatus);
@@ -37,6 +37,7 @@ const UserPopup = ({ isUserPopupOpen }) => {
       className="absolute right-[-35px] top-[50px] z-[999] flex h-fit w-36 animate-fadeInUser flex-col items-center gap-2 rounded-xl border-2 border-solid border-orange bg-[#ffffff] p-5 md:right-[-50px] md:top-[40px]"
       aria-hidden={!isUserPopupOpen}
       tabIndex={!isUserPopupOpen ? -1 : 0}
+      ref={userPopupRef}
     >
       <div className="flex flex-col items-center justify-center">
         <div className="flex h-full items-center justify-center">

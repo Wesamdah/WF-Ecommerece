@@ -59,7 +59,11 @@ export default function Header({
   // function to close the popop whenever the user clicks anywhere on screen
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (!buttonRef.current.contains(event.target)) {
+      if (
+        !buttonRef.current.contains(event.target) &&
+        userPopupRef.current &&
+        !userPopupRef.current.contains(event.target)
+      ) {
         setIsUserPopupOpen(false);
       }
     };
@@ -117,7 +121,12 @@ export default function Header({
               <SvgIcon theIcon="iconamoon:profile" />
             </div>
 
-            {isUserPopupOpen && <UserPopup isUserPopupOpen={isUserPopupOpen} />}
+            {isUserPopupOpen && (
+              <UserPopup
+                isUserPopupOpen={isUserPopupOpen}
+                userPopupRef={userPopupRef}
+              />
+            )}
           </div>
 
           <span className="cursor-pointer">
