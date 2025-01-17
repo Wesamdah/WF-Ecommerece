@@ -55,7 +55,7 @@ export default function ProductsList() {
           <div className="flex h-[480px] animate-pulse items-center justify-center bg-[#eee5e5]">
             <img src={logo} alt="" className="h-10 w-10" />
           </div>
-        ) : productStatus === "succeeded" ? (
+        ) : (
           <div
             id="spring_summer"
             className="mt-5 flex flex-wrap items-center justify-between"
@@ -75,8 +75,6 @@ export default function ProductsList() {
                 </div>
               ))}
           </div>
-        ) : (
-          <p>error</p>
         )}
       </section>
       <section className="h-[480px] w-full p-5 md:px-16 md:py-12">
