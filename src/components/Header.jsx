@@ -59,11 +59,7 @@ export default function Header({
   // function to close the popop whenever the user clicks anywhere on screen
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        userPopupRef.current &&
-        !userPopupRef.current.contains(event.target) &&
-        !buttonRef.current.contains(event.target)
-      ) {
+      if (!buttonRef.current.contains(event.target)) {
         setIsUserPopupOpen(false);
       }
     };
@@ -121,12 +117,7 @@ export default function Header({
               <SvgIcon theIcon="iconamoon:profile" />
             </div>
 
-            {isUserPopupOpen && (
-              <UserPopup
-                userPopupRef={userPopupRef}
-                isUserPopupOpen={isUserPopupOpen}
-              />
-            )}
+            {isUserPopupOpen && <UserPopup isUserPopupOpen={isUserPopupOpen} />}
           </div>
 
           <span className="cursor-pointer">
@@ -154,28 +145,23 @@ export default function Header({
         </div>
 
         <div className="flex items-center justify-center space-x-4 pr-4 text-sm">
-          <div className="relative">
+          <div className="relative" ref={buttonRef}>
             <div
-              className="flex cursor-pointer flex-col items-center justify-center gap-1 hover:text-orange"
+              className="flex cursor-pointer flex-col items-center justify-center gap-1"
               onClick={toggleUserPopup}
             >
               <SvgIcon theIcon="iconamoon:profile" />
               <p> Accounts</p>
             </div>
-            {isUserPopupOpen && (
-              <UserPopup
-                userPopupRef={userPopupRef}
-                isUserPopupOpen={isUserPopupOpen}
-              />
-            )}
+            {isUserPopupOpen && <UserPopup isUserPopupOpen={isUserPopupOpen} />}
           </div>
 
-          <p className="flex cursor-pointer flex-col items-center gap-1 hover:text-orange">
+          <p className="flex cursor-pointer flex-col items-center gap-1">
             <SvgIcon theIcon="hugeicons:location-09" />
             Stores
           </p>
 
-          <span className="flex cursor-pointer flex-col items-center gap-1 hover:text-orange">
+          <span className="flex cursor-pointer flex-col items-center gap-1">
             <SvgIcon theIcon="ic:outline-local-grocery-store" />
             Cart
           </span>

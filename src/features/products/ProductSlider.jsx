@@ -90,7 +90,7 @@ export default function ProductSlider({ idName, array }) {
     ],
   };
 
-  if (productStatus === "loading" || productStatus === "failed") {
+  if (productStatus === "loading") {
     return (
       <div className="flex h-full animate-pulse items-center justify-center bg-[#eee5e5]">
         <img src={logo} alt="" className="h-10 w-10" />
@@ -111,4 +111,5 @@ export default function ProductSlider({ idName, array }) {
       </div>
     );
   }
+  return <p>Error</p>;
 }
