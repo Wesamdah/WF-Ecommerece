@@ -34,9 +34,12 @@ export default function SignUp() {
     confirmPassword: "",
   });
 
+  const [isDelayed, setIsDelayed] = useState(false);
+
   const [validName, setValidName] = useState(true);
   const [validPwd, setValidPwd] = useState(true);
   const [validMatch, setValidMatch] = useState(true);
+  const [verify, setVerify] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -73,7 +76,7 @@ export default function SignUp() {
       setIsDelayed(true);
       setTimeout(() => {
         setIsDelayed(false);
-        navigate("/");
+        setVerify(true);
       }, 3000);
     }
 
@@ -86,9 +89,18 @@ export default function SignUp() {
         );
       }, 3000);
     }
-  }, [authStatus, authError, navigate, from]);
+  }, [authStatus, authError, navigate]);
 
   const canSubmit = [...Object.values(data)].every(Boolean);
+
+  const VerifyMessage = (
+    <div className="flex flex-col items-center justify-center gap-4 rounded-xl border-[1px] border-orange p-10 shadow-lg md:self-center">
+      <Icon icon="ix:success" className="text-8xl text-orange" />
+      <p className="text-2xl">
+        Please Check Your Email Inbox To Verify Your Account
+      </p>
+    </div>
+  );
 
   return (
     <main className="relative flex h-screen w-screen flex-col overflow-hidden bg-orange md:flex-row md:justify-between">
@@ -115,74 +127,80 @@ export default function SignUp() {
       </section>
 
       <section className="flex h-[calc(100%_-_124px)] w-full flex-col items-center justify-center overflow-hidden rounded-t-[30px] bg-[white] p-4 sm:p-6 md:h-full md:w-[60%] md:animate-loadForm md:items-start md:rounded-l-[30px] md:rounded-tr-none md:p-8 lg:h-full">
-        <p className="mb-4 text-xl font-semibold text-[#525252] sm:text-2xl md:text-3xl">
-          Create Account
-        </p>
-        <form onSubmit={handleSubmit} className="flex w-full flex-col">
-          <Inputs
-            name="name"
-            type="text"
-            placeholder="Enter Your First Name"
-            value={data.name}
-            setData={setData}
-            valid={validName}
-            validateInput={validateInput}
-            regexMessage="4 to 24 characters. Must start with a letter. Only letters, numbers, hyphens, and underscores are allowed."
-          />
-          <Inputs
-            name="lastName"
-            type="text"
-            placeholder="Enter Your Last Name"
-            value={data.lastName}
-            setData={setData}
-            valid={true}
-          />
-          <Inputs
-            name="email"
-            type="email"
-            placeholder="Enter Your Email"
-            value={data.email}
-            setData={setData}
-            valid={true}
-          />
-          <Inputs
-            name="password"
-            type="password"
-            placeholder="Enter Password"
-            value={data.password}
-            setData={setData}
-            valid={validPwd}
-            validateInput={validateInput}
-            regexMessage="8 to 24 characters. Must include uppercase, lowercase, a number, and a special character."
-          />
-          <Inputs
-            name="confirmPassword"
-            type="password"
-            placeholder="Confirm Password"
-            value={data.confirmPassword}
-            setData={setData}
-            valid={validMatch}
-            validateInput={validateInput}
-            regexMessage="Must match the first password input field."
-          />
-          <button
-            type="submit"
-            disabled={!canSubmit}
-            className="flex h-12 items-center justify-center rounded-lg bg-orange text-lg font-semibold text-[white] md:h-14 md:text-xl"
-          >
-            {authStatus === "loading" || isDelayed ? (
-              <SvgIcon theIcon="svg-spinners:180-ring-with-bg" />
-            ) : (
-              <p>Create Account</p>
-            )}
-          </button>
-        </form>
-        <p className="mt-2 text-center text-sm text-[#A1A1A1] sm:mt-4 md:text-left">
-          Already have an account?{" "}
-          <Link to={"/signin"} className="font-bold text-orange">
-            Login
-          </Link>
-        </p>
+        {verify ? (
+          VerifyMessage // No need for extra curly braces here
+        ) : (
+          <>
+            <p className="mb-4 text-xl font-semibold text-[#525252] sm:text-2xl md:text-3xl">
+              Create Account
+            </p>
+            <form onSubmit={handleSubmit} className="flex w-full flex-col">
+              <Inputs
+                name="name"
+                type="text"
+                placeholder="Enter Your First Name"
+                value={data.name}
+                setData={setData}
+                valid={validName}
+                validateInput={validateInput}
+                regexMessage="4 to 24 characters. Must start with a letter. Only letters, numbers, hyphens, and underscores are allowed."
+              />
+              <Inputs
+                name="lastName"
+                type="text"
+                placeholder="Enter Your Last Name"
+                value={data.lastName}
+                setData={setData}
+                valid={true}
+              />
+              <Inputs
+                name="email"
+                type="email"
+                placeholder="Enter Your Email"
+                value={data.email}
+                setData={setData}
+                valid={true}
+              />
+              <Inputs
+                name="password"
+                type="password"
+                placeholder="Enter Password"
+                value={data.password}
+                setData={setData}
+                valid={validPwd}
+                validateInput={validateInput}
+                regexMessage="8 to 24 characters. Must include uppercase, lowercase, a number, and a special character."
+              />
+              <Inputs
+                name="confirmPassword"
+                type="password"
+                placeholder="Confirm Password"
+                value={data.confirmPassword}
+                setData={setData}
+                valid={validMatch}
+                validateInput={validateInput}
+                regexMessage="Must match the first password input field."
+              />
+              <button
+                type="submit"
+                disabled={!canSubmit}
+                className="flex h-12 items-center justify-center rounded-lg bg-orange text-lg font-semibold text-[white] md:h-14 md:text-xl"
+              >
+                {authStatus === "loading" || isDelayed ? (
+                  <SvgIcon theIcon="svg-spinners:180-ring-with-bg" />
+                ) : (
+                  <p>Create Account</p>
+                )}
+              </button>
+            </form>
+            <p className="mt-2 text-center text-sm text-[#A1A1A1] sm:mt-4 md:text-left">
+              Already have an account?{" "}
+              <Link to={"/signin"} className="font-bold text-orange">
+                Login
+              </Link>
+            </p>
+          </>
+        )}
       </section>
 
       {/* Decorative Image */}

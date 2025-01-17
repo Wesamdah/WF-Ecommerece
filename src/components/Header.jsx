@@ -56,22 +56,22 @@ export default function Header({
   };
 
   // function to close the popop whenever the user clicks anywhere on screen
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        userPopupRef.current &&
-        !userPopupRef.current.contains(event.target)
-      ) {
-        setIsUserPopupOpen(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (
+  //       userPopupRef.current &&
+  //       !userPopupRef.current.contains(event.target)
+  //     ) {
+  //       setIsUserPopupOpen(false);
+  //     }
+  //   };
 
-    document.addEventListener("mousedown", handleClickOutside);
+  //   document.addEventListener("mousedown", handleClickOutside);
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [userPopupRef]);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, [userPopupRef]);
 
   return (
     <div className="pt-4 md:px-8 md:py-4 lg:px-14">
@@ -102,7 +102,7 @@ export default function Header({
             Find a store
           </p>
         </div>
-        <div className="flex w-full justify-center gap-4 text-lg md:w-1/3 md:justify-end">
+        <div className="relative flex w-full justify-center gap-4 text-lg md:w-1/3 md:justify-end">
           <span className="cursor-pointer">
             <SvgIcon theIcon="mdi:heart-outline" />
           </span>
