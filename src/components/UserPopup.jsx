@@ -63,10 +63,6 @@ const UserPopup = ({ userPopupRef, isUserPopupOpen }) => {
           ) : (
             <NavLink
               to="/signin"
-              // onClick={(e) => {
-              //   e.stopPropagation(); // Prevents the popup from closing
-              //   setIsUserPopupOpen(false); // Explicitly closes the popup after navigation
-              // }}
               className="flex items-center hover:text-orange"
             >
               <SvgIcon theIcon="solar:login-2-linear" />

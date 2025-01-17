@@ -121,24 +121,12 @@ export default function Header({
               <SvgIcon theIcon="iconamoon:profile" />
             </div>
 
-            {
-              isUserPopupOpen && (
-                <UserPopup
-                  userPopupRef={userPopupRef}
-                  isUserPopupOpen={isUserPopupOpen}
-                />
-              )
-              // <div
-              //   id="user-popup"
-              //   className="absolute right-[-50px] top-[40px] z-[1050] hidden w-36 animate-fadeInUser flex-col items-center gap-2 rounded-xl border-2 border-solid border-orange bg-[#ffffff] p-5 md:flex"
-              //   tabIndex={0}
-              //   ref={userPopupRef}
-              //   onClick={(e) => e.stopPropagation()} // Prevent click closure inside
-              // >
-              /* <UserPopup setIsUserPopupOpen={setIsUserPopupOpen} /> */
-
-              // </div>
-            }
+            {isUserPopupOpen && (
+              <UserPopup
+                userPopupRef={userPopupRef}
+                isUserPopupOpen={isUserPopupOpen}
+              />
+            )}
           </div>
 
           <span className="cursor-pointer">
