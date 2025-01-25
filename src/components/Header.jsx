@@ -42,40 +42,43 @@ export default function Header({
   const [mobileMenu, setMobileMenu] = useState(false);
   const [isUserPopupOpen, setIsUserPopupOpen] = useState(false);
   const userPopupRef = useRef(null);
+  const buttonRef = useRef(null);
 
   const handleChooseGender = (selectedType) => {
     setType(selectedType);
-  };
-
-  const toggleUserPopup = () => {
-    setIsUserPopupOpen(!isUserPopupOpen);
   };
 
   const handleSearchType = (selectedType) => {
     setSearchType(selectedType);
   };
 
+  const toggleUserPopup = () => {
+    setIsUserPopupOpen((prev) => !prev);
+  };
+
   // function to close the popop whenever the user clicks anywhere on screen
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (
-  //       userPopupRef.current &&
-  //       !userPopupRef.current.contains(event.target)
-  //     ) {
-  //       setIsUserPopupOpen(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        !buttonRef.current.contains(event.target) &&
+        userPopupRef.current &&
+        !userPopupRef.current.contains(event.target)
+      ) {
+        setIsUserPopupOpen(false);
+      }
+    };
 
   //   document.addEventListener("mousedown", handleClickOutside);
 
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [userPopupRef]);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="pt-4 md:px-8 md:py-4 lg:px-14">
       {/* first header for large screeens */}
+
       <section className="hidden items-center justify-between gap-4 md:flex md:gap-0">
         <div className="flex w-full items-center md:w-1/3">
           <NavLink to={"/"} className="flex items-center">
@@ -102,18 +105,30 @@ export default function Header({
             Find a store
           </p>
         </div>
-        <div className="relative flex w-full justify-center gap-4 text-lg md:w-1/3 md:justify-end">
+
+        <div className="flex w-full justify-center gap-4 text-lg md:w-1/3 md:justify-end">
           <span className="cursor-pointer">
             <SvgIcon theIcon="mdi:heart-outline" />
           </span>
-          <span
-            className="cursor-pointer"
-            onClick={toggleUserPopup}
-            ref={userPopupRef}
-          >
-            <SvgIcon theIcon="iconamoon:profile" />
-            {isUserPopupOpen && <UserPopup />}
-          </span>
+
+          <div className="relative" ref={buttonRef}>
+            <div
+              onClick={() => {
+                toggleUserPopup();
+              }}
+              className="cursor-pointer"
+            >
+              <SvgIcon theIcon="iconamoon:profile" />
+            </div>
+
+            {isUserPopupOpen && (
+              <UserPopup
+                isUserPopupOpen={isUserPopupOpen}
+                userPopupRef={userPopupRef}
+              />
+            )}
+          </div>
+
           <span className="cursor-pointer">
             <SvgIcon theIcon="ic:outline-local-grocery-store" />
           </span>
@@ -139,21 +154,23 @@ export default function Header({
         </div>
 
         <div className="flex items-center justify-center space-x-4 pr-4 text-sm">
-          <p
-            className="flex cursor-pointer flex-col items-center gap-1"
-            onClick={toggleUserPopup}
-            ref={userPopupRef}
-          >
-            <SvgIcon theIcon="iconamoon:profile" />
-            {isUserPopupOpen && <UserPopup />}
-            Accounts
-          </p>
-          <p className="flex cursor-pointer flex-col items-center gap-1 hover:text-orange">
+          <div className="relative" ref={buttonRef}>
+            <div
+              className="flex cursor-pointer flex-col items-center justify-center gap-1"
+              onClick={toggleUserPopup}
+            >
+              <SvgIcon theIcon="iconamoon:profile" />
+              <p> Accounts</p>
+            </div>
+            {isUserPopupOpen && <UserPopup isUserPopupOpen={isUserPopupOpen} />}
+          </div>
+
+          <p className="flex cursor-pointer flex-col items-center gap-1">
             <SvgIcon theIcon="hugeicons:location-09" />
             Stores
           </p>
 
-          <span className="flex cursor-pointer flex-col items-center gap-1 hover:text-orange">
+          <span className="flex cursor-pointer flex-col items-center gap-1">
             <SvgIcon theIcon="ic:outline-local-grocery-store" />
             Cart
           </span>
@@ -290,7 +307,7 @@ export default function Header({
         <p
           className="mb-4 flex cursor-pointer items-center text-2xl font-semibold text-[gray] hover:text-orange"
           onClick={toggleUserPopup}
-          ref={userPopupRef}
+          // ref={userPopupRef}
         >
           <SvgIcon theIcon="iconamoon:profile" />
           {/* {isUserPopupOpen && <UserPopup />} */}
