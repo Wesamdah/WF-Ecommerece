@@ -48,10 +48,23 @@ export const getCurrentUser = createAsyncThunk(
       console.log(response.data);
       return response.data;
     } catch (error) {
+      console.log(error.response?.data)
       return rejectWithValue(error.response?.data);
     }
   },
 );
+
+//verify email thunk
+export const verifyEmail = createAsyncThunk("auth/verify-email", async (credentials, { rejectWithValue }) => {
+  try {
+    const response = await axiosClient.post('/auth/verify-email', credentials);
+    console.log(response.data)
+    return response.data
+  } catch (error) {
+    console.log(error.response?.data)
+    return rejectWithValue(error.response?.data)
+  }
+})
 
 const authSlice = createSlice({
   name: "auth",
@@ -90,13 +103,24 @@ const authSlice = createSlice({
         state.status = "loading";
         state.error = null;
       })
-      .addCase(registerUser.fulfilled, (state) => {
+      .addCase(registerUser.fulfilled, (state, action) => {
         state.status = "succeeded";
       })
       .addCase(registerUser.rejected, (state, action) => {
-        state.status = "idle";
-        state.error = action.payload;
-      });
+        state.status = "failed";
+        state.error = action.payload || "An error occurred.";
+      })
+      .addCase(verifyEmail.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(verifyEmail.fulfilled, (state) => {
+        state.status = "succeeded";
+      })
+      .addCase(verifyEmail.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload || "An error occurred.";
+      })
   },
 });
 
@@ -105,3 +129,5 @@ export default authSlice.reducer;
 export const selectCurrentUser = (state) => state.auth.user;
 export const selectAuthStatus = (state) => state.auth.status;
 export const selectAuthError = (state) => state.auth.error;
+
+
