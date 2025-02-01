@@ -9,7 +9,7 @@ import {
 } from "../features/auth/authSlice";
 import { showPopup } from "../features/popup/popupSlice";
 // assets
-import Logo from "../assets/imgs/logo.png";
+import Logo from "../assets/imgs/iconLogo.png";
 import onlineShopping from "../assets/imgs/onlineShopping.png";
 import { Icon } from "@iconify/react/dist/iconify.js";
 // components
@@ -108,7 +108,7 @@ export default function SignUp() {
         <div className="mb-2 flex flex-row items-center justify-center sm:mb-4 md:mb-6 md:justify-start">
           <img
             src={Logo}
-            className="h-16 w-16 sm:h-20 sm:w-20 md:h-40 md:w-40"
+            className="mr-3 h-16 w-16 sm:h-20 sm:w-20 md:h-20 md:w-20"
             alt="Logo"
           />
           <p className="text-2xl font-bold text-[#ffffff] sm:text-4xl md:text-xl lg:text-2xl">
@@ -206,7 +206,7 @@ export default function SignUp() {
       {/* Decorative Image */}
       <img
         src={onlineShopping}
-        className="absolute bottom-0 left-0 hidden h-[200px] w-[200px] sm:h-[250px] sm:w-[250px] md:h-[300px] md:w-[300px] lg:h-[400px] lg:w-[400px] xl:left-[10%]"
+        className="absolute bottom-0 left-0 hidden h-[200px] w-[200px] sm:h-[250px] sm:w-[250px] md:block md:h-[300px] md:w-[300px] lg:block lg:h-[400px] lg:w-[400px] xl:left-[10%]"
         alt="Shopping Illustration"
       />
     </main>

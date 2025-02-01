@@ -8,7 +8,7 @@ import UserPopup from "./UserPopup";
 import SearchBar from "../features/products/SearchBar";
 
 const SvgIcon = ({ theIcon }) => (
-  <Icon icon={theIcon} className="mr-2 text-2xl hover:text-orange" />
+  <Icon icon={theIcon} className="text-2xl hover:text-orange" />
 );
 
 const GenderOption = ({ label, selectedType, onClick }) => (
@@ -68,7 +68,7 @@ export default function Header({
       }
     };
 
-  //   document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -76,7 +76,7 @@ export default function Header({
   }, []);
 
   return (
-    <div className="pt-4 md:px-8 md:py-4 lg:px-14">
+    <div className="md:px-8 md:py-4 lg:px-14">
       {/* first header for large screeens */}
 
       <section className="hidden items-center justify-between gap-4 md:flex md:gap-0">
@@ -88,7 +88,7 @@ export default function Header({
               className="h-10 w-12 cursor-pointer md:h-12 md:w-16"
             />
             <div className="ml-4 bg-gradient-to-r from-[#d62828] to-[#fcbf49] bg-clip-text text-lg font-bold text-[transparent] md:text-lg lg:text-xl">
-              <span>Wessam & Firas</span>
+              <span>WF Store</span>
               <br />
               <span className="block md:inline"> FASHION</span>
             </div>
@@ -137,7 +137,7 @@ export default function Header({
 
       {/* first header for small and  screeens */}
 
-      <section className="flex items-center justify-between md:hidden">
+      <section className="flex items-center justify-between px-2 py-4 md:hidden">
         <div className="flex w-full items-center md:w-1/3">
           <NavLink to={"/"} className="flex items-center">
             <img
@@ -145,27 +145,22 @@ export default function Header({
               alt="logo!"
               className="h-10 w-12 cursor-pointer md:h-12 md:w-16"
             />
-            <div className="ml-4 bg-gradient-to-r from-[#d62828] to-[#fcbf49] bg-clip-text text-xs font-bold text-[transparent]">
-              <span>Wessam & Firas</span>
-              <br />
-              <span className="block md:inline"> FASHION</span>
-            </div>
           </NavLink>
         </div>
 
-        <div className="flex items-center justify-center space-x-4 pr-4 text-sm">
+        <div className="flex items-center justify-center space-x-4 text-sm">
           <div className="relative" ref={buttonRef}>
             <div
-              className="flex cursor-pointer flex-col items-center justify-center gap-1"
+              className="flex cursor-pointer flex-col items-center justify-center gap-1 sm:text-xs"
               onClick={toggleUserPopup}
             >
               <SvgIcon theIcon="iconamoon:profile" />
-              <p> Accounts</p>
+              <p>Accounts</p>
             </div>
             {isUserPopupOpen && <UserPopup isUserPopupOpen={isUserPopupOpen} />}
           </div>
 
-          <p className="flex cursor-pointer flex-col items-center gap-1">
+          <p className="flex cursor-pointer flex-col items-center justify-center gap-1">
             <SvgIcon theIcon="hugeicons:location-09" />
             Stores
           </p>

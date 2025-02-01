@@ -41,7 +41,7 @@ export default function ProductsList() {
           <span className="last-of-type:text-4xl">spring/summer 2025</span>
         </div>
       </section>
-      <section className="h-[480px] w-full p-5 md:px-16 md:py-12">
+      <section className="w-full p-5 md:h-[480px] md:px-16 md:py-12">
         <p className="text-xl font-semibold uppercase text-[black] md:text-3xl">
           trending now
         </p>
@@ -77,7 +77,7 @@ export default function ProductsList() {
           </div>
         )}
       </section>
-      <section className="h-[480px] w-full p-5 md:px-16 md:py-12">
+      <section className="w-full p-5 md:h-[480px] md:px-16 md:py-12">
         <p className="text-lg font-semibold uppercase text-[black] sm:text-xl md:text-3xl">
           RECOMMENDED FOR YOU
         </p>
@@ -112,7 +112,7 @@ export default function ProductsList() {
           />
         </div>
       </section>
-      <section className="h-[480px] w-full p-5 md:px-16 md:py-12">
+      <section className="w-full p-5 md:h-[480px] md:px-16 md:py-12">
         <p className="text-xl font-semibold uppercase text-[black] md:text-3xl">
           NEW IN... ACCESORIES
         </p>

@@ -34,7 +34,7 @@ const UserPopup = ({ isUserPopupOpen, userPopupRef }) => {
 
   return (
     <div
-      className="absolute right-[-35px] top-[50px] z-[999] flex h-fit w-36 animate-fadeInUser flex-col items-center gap-2 rounded-xl border-2 border-solid border-orange bg-[#ffffff] p-5 md:right-[-50px] md:top-[40px]"
+      className="absolute right-[-39px] top-[50px] z-[999] flex h-fit w-36 animate-fadeInUser flex-col items-center gap-2 rounded-xl border-2 border-solid border-orange bg-[#ffffff] p-5 sm:right-[-42px] md:top-[40px] lg:right-[-57px]"
       aria-hidden={!isUserPopupOpen}
       tabIndex={!isUserPopupOpen ? -1 : 0}
       ref={userPopupRef}

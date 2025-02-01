@@ -83,7 +83,6 @@ export default function ProductSlider({ idName, array }) {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          centerMode: true, // Optional for better UX
           centerPadding: "10px",
         },
       },
@@ -100,7 +99,7 @@ export default function ProductSlider({ idName, array }) {
 
   if (productStatus === "succeeded") {
     return (
-      <div id={idName} className="mx-auto mt-5 w-full px-4">
+      <div id={idName} className="mx-auto mt-5 w-full">
         <Slider key={idName} {...sliderSettings}>
           {array.map((productId, index) => (
             <div key={index} className="px-2">

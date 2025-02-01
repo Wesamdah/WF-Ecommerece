@@ -11,7 +11,7 @@ import {
 } from "../features/auth/authSlice";
 import { showPopup } from "../features/popup/popupSlice";
 // assets
-import Logo from "../assets/imgs/logo.png";
+import Logo from "../assets/imgs/iconLogo.png";
 import image2 from "../assets/imgs/image2.png";
 import { Icon } from "@iconify/react/dist/iconify.js";
 // components
@@ -74,7 +74,7 @@ export default function SignIn() {
   return (
     <main className="relative flex h-screen w-screen flex-col-reverse overflow-hidden bg-orange md:flex-row md:justify-between">
       <section className="flex h-[calc(100%_-_124px)] w-full flex-col items-center justify-center overflow-hidden rounded-t-[30px] bg-[white] p-4 sm:p-6 md:h-full md:w-[60%] md:animate-loadForm md:items-start md:rounded-r-[30px] md:rounded-tl-none md:p-8 lg:h-full">
-        <p className="mb-4 text-xl font-semibold text-[#525252] sm:text-2xl md:text-3xl">
+        <p className="mb-4 px-8 text-xl font-semibold text-[#525252] sm:text-2xl md:text-3xl">
           Login{" "}
         </p>
         <form
@@ -116,11 +116,11 @@ export default function SignIn() {
         </p>
       </section>
 
-      <section className="m-2 flex h-fit w-full flex-col justify-center overflow-hidden text-center sm:m-4 md:m-10 md:mx-auto md:h-full md:w-[40%] md:justify-normal md:pl-2 md:font-bold lg:w-[30%] lg:text-start lg:text-xl">
+      <section className="my-2 flex h-fit w-full flex-col justify-center overflow-hidden text-center sm:m-4 md:m-10 md:mx-auto md:h-full md:w-[40%] md:justify-normal md:pl-2 md:font-bold lg:w-[30%] lg:text-start lg:text-xl">
         <div className="mb-2 flex flex-row items-center justify-center sm:mb-4 md:mb-6 md:justify-start">
           <img
             src={Logo}
-            className="h-16 w-16 sm:h-20 sm:w-20 md:h-40 md:w-40"
+            className="mr-3 h-16 w-16 sm:h-20 sm:w-20 md:h-20 md:w-20"
             alt="Logo"
           />
           <p className="text-2xl font-bold text-[#ffffff] sm:text-4xl md:text-xl lg:text-2xl">
@@ -132,7 +132,7 @@ export default function SignIn() {
           <p className="mb-4 hidden text-xl font-bold text-[#ffffff] sm:text-2xl md:block md:text-3xl xl:text-4xl">
             E-Commerce Store
           </p>
-          <p className="text-sm text-[#ffffff] sm:text-lg md:text-xl lg:text-xl">
+          <p className="text-xs text-[#ffffff] sm:text-sm md:text-xl lg:text-xl">
             Discover the best deals and shop your favorites all in one place!
           </p>
         </div>
