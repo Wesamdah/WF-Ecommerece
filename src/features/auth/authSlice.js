@@ -31,7 +31,7 @@ export const registerUser = createAsyncThunk(
 // logout user thunk
 export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
   try {
-    const response = await axiosClient.get("/auth/logout", {});
+    const response = await axiosClient.delete("/auth/logout", {});
     console.log(response.data);
     return response.data;
   } catch (error) {
