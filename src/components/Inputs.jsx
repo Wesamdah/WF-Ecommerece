@@ -8,113 +8,62 @@ export default function Inputs({
   value,
   setData,
   valid,
-  Regex,
+  validateInput,
+  regexMessage,
 }) {
-  const [typo, setTypo] = useState(type);
+  const [inputType, setInputType] = useState(type);
   const [focus, setFocus] = useState(false);
 
   const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
+    const { name, value } = e.target;
     setData((prev) => ({ ...prev, [name]: value }));
+    validateInput && validateInput(e); // Trigger validation on change
   };
 
+  const inputClass =
+    "h-[50px] w-[100%] rounded-lg border border-[#ddd] p-5 outline-none focus:border-2 focus:border-solid focus:border-[#1d3557]";
+  const errorClass =
+    "mt-4 flex items-center justify-start text-xs text-[#e63946]";
+
   return (
-    <>
-      {type === "password" ? (
-        <div className="w-[100%] mb-11 ">
-          <div className="w-[100%] relative ">
-            <input
-              type={typo}
-              placeholder={placeholder}
-              name={name}
-              id={name}
-              value={value}
-              onChange={handleChange}
-              required
-              onFocus={() => setFocus(true)}
-              onBlur={() => setFocus(false)}
-              className="w-[100%] h-[50px] p-5  outline-none border border-[#ddd] rounded-lg focus:border-2 focus:border-solid focus:border-[#1d3557]"
-            />
-            <Icon
-              icon={
-                typo === "password" ? "heroicons-solid:eye" : "ri:eye-off-fill"
-              }
-              onClick={() => setTypo(typo === "password" ? "text" : "password")}
-              className="absolute right-5 top-1/2 -translate-y-2/4 text-[#219ebc] hover:text-[#1d3557] cursor-pointer "
-            />
-          </div>
-          {Regex
-            ? !valid &&
-              focus &&
-              (name === "password" ? (
-                <p
-                  id="pwdnote"
-                  className={
-                    !valid
-                      ? " flex justify-start  text-xs mt-4 items-center text-[#e63946]  "
-                      : "hidden"
-                  }
-                >
-                  <Icon
-                    icon={"material-symbols:info-outline"}
-                    className="text-xl mr-2"
-                  />
-                  8 to 24 characters. must includes uppercase and lowercase
-                  letters , a number and a special charechtar. Allow special
-                  charectars
-                </p>
-              ) : (
-                <p
-                  id="confirmnote"
-                  className={
-                    !valid
-                      ? "flex justify-start  text-xs mt-4 items-center text-[#e63946]"
-                      : "hidden"
-                  }
-                >
-                  <Icon
-                    icon={"material-symbols:info-outline"}
-                    className="text-xl mr-2"
-                  />
-                  Must match the first password input field
-                </p>
-              ))
-            : null}
-        </div>
-      ) : (
-        <div className="w-[100%] relative mb-11">
-          <input
-            type={typo}
-            placeholder={placeholder}
-            name={name}
-            id={name}
-            value={value}
-            onChange={handleChange}
-            required
-            onFocus={() => setFocus(true)}
-            onBlur={() => setFocus(false)}
-            className="w-[100%] h-[50px] p-5  outline-none border border-[#ddd] rounded-lg focus:border focus:border-solid focus:border-primary-black"
+    <div className="mb-6 w-[100%] md:mb-11">
+      <div className="relative w-[100%]">
+        <input
+          type={inputType}
+          placeholder={placeholder}
+          name={name}
+          id={name}
+          value={value}
+          onChange={handleChange}
+          required
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
+          className={`${inputClass} focus:outline-none ${valid && value ? (valid ? "focus:border-none focus:outline-[green]" : "focus:border-none focus:outline-[red]") : "outline-none"}`}
+        />
+        {type === "password" && (
+          <Icon
+            icon={
+              inputType === "password"
+                ? "heroicons-solid:eye"
+                : "ri:eye-off-fill"
+            }
+            onClick={() =>
+              setInputType(inputType === "password" ? "text" : "password")
+            }
+            className="absolute right-5 top-1/2 -translate-y-2/4 cursor-pointer text-orange hover:text-primary-black"
           />
-          {!valid && focus && type === "text" && (
-            <p
-              id="uidnote"
-              className={
-                !valid
-                  ? "flex justify-start  text-xs mt-4 items-center text-[#e63946]"
-                  : "hidden"
-              }
-            >
-              <Icon
-                icon={"material-symbols:info-outline"}
-                className="text-xl mr-2"
-              />
-              4 to 24 characters. must begin with a letter.
-              Letters,number,sunderscores
-            </p>
-          )}
-        </div>
+        )}
+      </div>
+
+      {!valid && focus && regexMessage && (
+        <p className={`${errorClass} ${value ? "block" : "hidden"}`}>
+          <Icon
+            icon={"material-symbols:info-outline"}
+            className="mr-2 text-xl"
+          />
+          {regexMessage}
+        </p>
       )}
-    </>
+    </div>
   );
 }

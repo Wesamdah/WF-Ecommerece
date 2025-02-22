@@ -21,6 +21,7 @@ export default {
             width: "60%",
           },
         },
+
         loadImage: {
           "0%": {
             bottom: "-999px",
@@ -29,10 +30,46 @@ export default {
             bottom: "0px",
           },
         },
+
+        fadeIn: {
+          "0%": {
+            opacity: 0,
+            transform: 'translateY(20px)',
+          },
+          "100%": {
+            opacity: 1,
+            transform: 'translateY(0)',
+          }
+        },
+
+        fadeOut: {
+          "0%": {
+            opacity: 1,
+            transform: 'translateY(0)',
+          },
+          "100%": {
+            opacity: 0,
+            transform: 'translateY(20px)',
+          }
+        },
+
+        fadeInUser: {
+          "0%": {
+            opacity: 0,
+            transform: 'translateY(-20px)',
+          },
+          "100%": {
+            opacity: 1,
+            transform: 'translateY(0)',
+          }
+        },
       },
       animation: {
         loadForm: "loadForm 1s ease-in-out ",
         loadImage: "loadImage 2s ease-in-out ",
+        fadeIn: "fadeIn 0.5s ease-in-out",
+        fadeOut: "fadeOut 0.5s ease-in-out",
+        fadeInUser: "fadeInUser 0.5s ease-in-out"
       },
     },
   },
