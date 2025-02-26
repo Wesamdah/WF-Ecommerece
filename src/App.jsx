@@ -1,4 +1,5 @@
-import { Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+
 // layouts
 import SignUp from "./layout/SignUp";
 import SignIn from "./layout/SignIn";
@@ -13,22 +14,24 @@ function App() {
   return (
     <>
       <InfoPopup />
-      <Routes>
-        <Route
-          path="/*"
-          element={
-            <DropMenuProvider>
-              <UserLayout />
-            </DropMenuProvider>
-          }
-        >
-          <Route index element={<ProductsList />} />
-        </Route>
+      <Router>
+        <Routes>
+          <Route
+            path="/*"
+            element={
+              <DropMenuProvider>
+                <UserLayout />
+              </DropMenuProvider>
+            }
+          >
+            <Route index element={<ProductsList />} />
+          </Route>
 
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/user/verify-email" element={<Verify />} />
-      </Routes>
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/user/verify-email" element={<Verify />} />
+        </Routes>
+      </Router>
     </>
   );
 }
