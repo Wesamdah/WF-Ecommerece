@@ -14,24 +14,22 @@ function App() {
   return (
     <>
       <InfoPopup />
-      <Router>
-        <Routes>
-          <Route
-            path="/*"
-            element={
-              <DropMenuProvider>
-                <UserLayout />
-              </DropMenuProvider>
-            }
-          >
-            <Route index element={<ProductsList />} />
-          </Route>
+      <Routes>
+        <Route
+          path="/*"
+          element={
+            <DropMenuProvider>
+              <UserLayout />
+            </DropMenuProvider>
+          }
+        >
+          <Route index element={<ProductsList />} />
+        </Route>
 
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/user/verify-email" element={<Verify />} />
-        </Routes>
-      </Router>
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/user/verify-email" element={<Verify />} />
+      </Routes>
     </>
   );
 }
